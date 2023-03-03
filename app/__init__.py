@@ -15,5 +15,5 @@ def create_app():
         response.headers["Content-type"] = "application/json"
         return response
 
-    app.register_blueprint(api, url_prefix="/v1")
+    app.register_blueprint(api)
     return app
