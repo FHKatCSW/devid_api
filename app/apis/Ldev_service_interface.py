@@ -28,12 +28,12 @@ class LDevIDKey(Resource):
 class LDevIDKey(Resource):
 
     @api.doc("provision")
-    def provision(self, name):
+    def post(self, name):
         """Create an LDevID key"""
         return {"status": "NotImplemented"}
 
-    @api.doc("post")
-    def create(self, name):
+    @api.doc("create")
+    def post(self, name):
         """Create an LDevID key"""
         return {"status": "NotImplemented"}
 
