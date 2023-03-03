@@ -1,17 +1,5 @@
 # Flask API Sample
 
-Simple [Flask API Server](https://blog.appseed.us/simple-flask-api-server/) powered by Flask-RestX, SqlAlchemy, **SQLite** persistence - Provided by **AppSeed**. 
-
-<br />
-
-> Features:
-
-- `Up-to-date dependencies` 
-- Simple, intuitive codebase - can be extended with ease. 
-- `Flask-restX`
-- `Docker` support 
-- Free [support](https://appseed.us/support) via email and [Discord](https://discord.gg/fZC6hup) (1k+ community).
-
 <br />
 
 ## ✨ API Definition
@@ -26,7 +14,7 @@ Simple [Flask API Server](https://blog.appseed.us/simple-flask-api-server/) powe
 
 <br />
 
-## ✨ Quick Start in `Docker`
+## Docker config
 
 > Get the code
 
@@ -45,11 +33,7 @@ The API server will start using the PORT `5000`.
 
 <br />
 
-![Flask API Server - Open-source Flask Starter provided by AppSeed.](https://user-images.githubusercontent.com/51070104/126349643-264d4cf4-6d0b-4c24-8185-adf69409fa4e.png)
-
-<br />
-
-## ✨ How to use the code
+## Using the code
 
 > **Step #1** - Clone the project
 
@@ -60,10 +44,9 @@ $ cd flask-api-sample
 
 <br />
 
-> **Step #2** - create virtual environment using python3 and activate it (keep it outside our project directory)
+> **Step #2** - create virtual environment using python3 and activate it 
 
 ```bash
-$ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
 $ source env/bin/activate
 $
@@ -82,34 +65,21 @@ $ pip install -r requirements.txt
 
 <br />
 
-> **Step #4** - setup `flask` command for our app
+> **Step #4** - setup `flask`
 
 ```bash
 $ export FLASK_APP=run.py
 $ export FLASK_ENV=development
 ```
-
-> Or for Windows-based systems
-
-```powershell
-$ (Windows CMD) set FLASK_APP=run.py
-$ (Windows CMD) set FLASK_ENV=development
-$
-$ (Powershell) $env:FLASK_APP = ".\run.py"
-$ (Powershell) $env:FLASK_ENV = "development"
-```
-
 <br />
 
 > **Step #5** - start test APIs server at `localhost:5000`
 
 ```bash
-$ flask run
+$ flask run --host=0.0.0.0 --port=5000
 ```
 
-Use the API via `POSTMAN` or Swagger Dashboard.
-
-![Flask API Sample - Swagger Dashboard.](https://user-images.githubusercontent.com/51070104/151857217-ec364df4-cc90-413f-8bbe-a65e45dc8c35.png)
+Swagger API documentation is available at http://YOUR_HOST_NAME:5000/v1/
 
 <br />
 

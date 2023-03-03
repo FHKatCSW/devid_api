@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 
-api = Namespace("dogs", description="Dogs related operations")
+api = Namespace("mgmt", description="IEEE 802.1 ARManagement related operations")
 
 dog = api.model(
     "Dog",
