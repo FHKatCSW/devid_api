@@ -11,7 +11,8 @@ from flask_restx import Api
 blueprint = Blueprint("api", __name__)
 
 api = Api(
-    blueprint, title="IEEE 802.1 AR API",
+    blueprint,
+    title="IEEE 802.1 AR API",
     version="0.1",
     description="Interfaces to communicate with an entity, setup a device and manage DevIDs according to IEEE 802.1 AR"
 )

@@ -9,7 +9,6 @@ ldevid = api.model(
     },
 )
 
-@api.response(404, "Status not found")
 class ldevid(Resource):
 
     @api.doc("create")
