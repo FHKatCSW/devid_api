@@ -1,10 +1,5 @@
-# -*- encoding: utf-8 -*-
+from app import create_app
 
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
-from api.restx import app
-
-if __name__ == '__main__':  # So lässt sich die API
-    app.run(debug=True)  #
+app = create_app()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
