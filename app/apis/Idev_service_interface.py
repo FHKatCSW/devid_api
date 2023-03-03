@@ -17,27 +17,36 @@ class CreateIDevID(Resource):
     def post(self, id):
         """Create an LDevID key"""
         return {"status": "NotImplemented"}
+    
+@api.route('/delete/<name>', endpoint='delete')
+@api.doc(params={'name': 'A name'})
+class DeleteIDevID(Resource):
+
+    @api.doc("delete")
+    def delete(self, name):
+        """Delete an LDevID key"""
+        return {"status": "NotImplemented"}
+    
+@api.route('/provision/<name>', endpoint='provision')
+@api.doc(params={'name': 'A name'})
+class ProvisionIDevID(Resource):
+
+    @api.doc("provision")
+    def post(self, name):
+        """Provision an LDevID certificate"""
+        return {"status": "NotImplemented"}
+
+@api.route('/verify/<name>', endpoint='verify')
+@api.doc(params={'name': 'A name'})
+class VerifyIDevID(Resource):
+
+    @api.doc("post")
+    def post(self, name):
+        """Provision an LDevID certificate"""
+        return {"status": "NotImplemented"}
 
 @api.route('/ldevid', endpoint='ldevid')
 class ldevid(Resource):
-
-    @api.doc("create")
-    @api.marshal_with(ldevid)
-    def create(self):
-        """Create an LDevID key"""
-        return {"status": "NotImplemented"}
-    
-    @api.doc("delete")
-    @api.marshal_with(ldevid)
-    def delete(self):
-        """Delete an LDevID key"""
-        return {"status": "NotImplemented"}
-
-    @api.doc("provision")
-    @api.marshal_with(ldevid)
-    def provision(self):
-        """provision an LDevID certificate"""
-        return {"status": "NotImplemented"}
 
     @api.doc("verify")
     @api.marshal_with(ldevid)
@@ -45,7 +54,7 @@ class ldevid(Resource):
         """Verify an LDevID"""
         return {"status": "NotImplemented"}
 
-    @api.doc("export")
+    @api.doc("post")
     @api.marshal_with(ldevid)
     def export(self):
         """Export an LDevID"""
