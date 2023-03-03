@@ -9,7 +9,6 @@ from flask import Flask
 from flask_cors import CORS
 
 from api.routes import rest_api
-from api.models import db
 
 # Create App
 app = Flask(__name__)
