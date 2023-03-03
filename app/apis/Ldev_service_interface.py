@@ -23,7 +23,7 @@ class LDevID(Resource):
         return {"status": "NotImplemented"}
 
 
-@api.route('/provision/<name>', endpoint='provision')
+@api.route('/provision/<name>', endpoint='provision-ldevid')
 @api.doc(params={'name': 'A name'})
 class ProvisionLDevID(Resource):
 
@@ -33,7 +33,7 @@ class ProvisionLDevID(Resource):
         return {"status": "NotImplemented"}
 
 
-@api.route('/verify/<name>', endpoint='verify')
+@api.route('/verify/<name>', endpoint='verify-ldevid')
 @api.doc(params={'name': 'A name'})
 class VerifyLDevID(Resource):
 
