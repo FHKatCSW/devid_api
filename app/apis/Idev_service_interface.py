@@ -9,6 +9,16 @@ ldevid = api.model(
     },
 )
 
+@api.route('/create/<name>', endpoint='create')
+@api.doc(params={'name': 'A name'})
+class CreateIDevID(Resource):
+
+    @api.doc("create")
+    def post(self, id):
+        """Create an LDevID key"""
+        return {"status": "NotImplemented"}
+
+@api.route('/ldevid', endpoint='ldevid')
 class ldevid(Resource):
 
     @api.doc("create")

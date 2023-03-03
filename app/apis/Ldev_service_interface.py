@@ -9,6 +9,16 @@ ldevid = api.model(
     },
 )
 
+@api.route('/my-resource/<id>', endpoint='my-resource')
+@api.doc(params={'id': 'An ID'})
+class MyResource(Resource):
+    def get(self, id):
+        return {}
+
+    @api.doc(responses={403: 'Not Authorized'})
+    def post(self, id):
+        api.abort(403)
+
 
 
 @api.response(404, "Status not found")
