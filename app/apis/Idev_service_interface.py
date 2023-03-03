@@ -3,7 +3,7 @@ from flask_restx import Namespace, Resource, fields
 api = Namespace("idevid", description="IEEE 802.1 AR IDevID Service related operations")
 
 
-@api.route('/create/<name>', endpoint='create')
+@api.route('/create/<name>', endpoint='create-idevid')
 @api.doc(params={'name': 'A name'})
 class CreateIDevID(Resource):
 

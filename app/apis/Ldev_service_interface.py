@@ -8,7 +8,7 @@ api = Namespace("LDevID", description="IEEE 802.1 AR LDevID Service related oper
 class LDevID(Resource):
 
     @api.doc("create")
-    def post(self, id):
+    def post(self, name):
         """Create an LDevID key"""
         return {"status": "NotImplemented"}
 
