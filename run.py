@@ -4,7 +4,7 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from api.restx import api
+from api.restx import app
 
-if __name__ == '__main__':
-    api.run(debug=True, host="0.0.0.0")
+if __name__ == '__main__':  # So lässt sich die API
+    app.run(debug=True)  #
