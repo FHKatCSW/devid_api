@@ -1,64 +1,132 @@
-# fastapi-clean-example
+# Flask API Sample
 
-[![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://docs.python.org/3/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
-[![OpenAPI](https://img.shields.io/badge/openapi-6BA539?style=for-the-badge&logo=openapi-initiative&logoColor=fff)](https://www.openapis.org/)
-[![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)](https://swagger.io/)
-[![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)](https://graphql.org/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge)](https://black.readthedocs.io/en/stable/)
-[![Typed with: pydantic](https://img.shields.io/badge/typed%20with-pydantic-BA600F.svg?style=for-the-badge)](https://black.readthedocs.io/en/stable/)
-[![Open Issues](https://img.shields.io/github/issues-raw/0xTheProDev/fastapi-clean-example?style=for-the-badge)](https://github.com/0xTheProDev/fastapi-clean-example/issues)
-[![Closed Issues](https://img.shields.io/github/issues-closed-raw/0xTheProDev/fastapi-clean-example?style=for-the-badge)](https://github.com/0xTheProDev/fastapi-clean-example/issues?q=is%3Aissue+is%3Aclosed)
-[![Open Pulls](https://img.shields.io/github/issues-pr-raw/0xTheProDev/fastapi-clean-example?style=for-the-badge)](https://github.com/0xTheProDev/fastapi-clean-example/pulls)
-[![Closed Pulls](https://img.shields.io/github/issues-pr-closed-raw/0xTheProDev/fastapi-clean-example?style=for-the-badge)](https://github.com/0xTheProDev/fastapi-clean-example/pulls?q=is%3Apr+is%3Aclosed)
-[![Contributors](https://img.shields.io/github/contributors/0xTheProDev/fastapi-clean-example?style=for-the-badge)](https://github.com/0xTheProDev/fastapi-clean-example/graphs/contributors)
-[![Activity](https://img.shields.io/github/last-commit/0xTheProDev/fastapi-clean-example?style=for-the-badge&label=most%20recent%20activity)](https://github.com/0xTheProDev/fastapi-clean-example/pulse)
+Simple [Flask API Server](https://blog.appseed.us/simple-flask-api-server/) powered by Flask-RestX, SqlAlchemy, **SQLite** persistence - Provided by **AppSeed**. 
 
-## Description
+<br />
 
-_Example implementation of IEEE 802.1 AR as an API_
+> Features:
 
-This example showcases Repository Pattern in Hexagonal Architecture _(also known as Clean Architecture)_. Here we have two Entities - Books and Authors, whose relationships have been exploited to create CRUD endpoint in REST under OpenAPI standard.
+- `Up-to-date dependencies` 
+- Simple, intuitive codebase - can be extended with ease. 
+- `Flask-restX`
+- `Docker` support 
+- Free [support](https://appseed.us/support) via email and [Discord](https://discord.gg/fZC6hup) (1k+ community).
 
-## Installation
+<br />
 
-- Install all the project dependency using [Pipenv](https://pipenv.pypa.io):
+## ✨ API Definition
 
-  ```sh
-  $ pipenv install --dev
-  ```
+| Route  | Verb | Info | Status | 
+|    --- | ---  | --- | --- | 
+| `/datas`    | **GET**    | return all items  | ✔️ | 
+|             | **POST**   | create a new item | ✔️ |
+| `/datas:id` | **GET**    | return one item   | ✔️ | 
+|             | **PUT**    | update item       | ✔️ |
+|             | **DELETE** | delete item       | ✔️ |
 
-- Run the application from command prompt:
+<br />
 
-  ```sh
-  $ pipenv run uvicorn main:app --reload
-  ```
+## ✨ Quick Start in `Docker`
 
-- You can also open a shell inside virtual environment:
+> Get the code
 
-  ```sh
-  $ pipenv shell
-  ```
+```bash
+$ git clone https://github.com/app-generator/flask-api-sample.git
+$ cd flask-api-sample
+```
 
-- Open `localhost:8000/docs` for API Documentation
+> Start the app in Docker
 
-- Open `localhost:8000/graphql` for GraphQL Documentation
+```bash
+$ docker-compose up --build  
+```
 
-_*Note:* In case you are not able to access `pipenv` from you `PATH` locations, replace all instances of `pipenv` with `python3 -m pipenv`._
+The API server will start using the PORT `5000`.
 
-## Testing
+<br />
 
-For Testing, `unittest` module is used for Test Suite and Assertion, whereas `pytest` is being used for Test Runner and Coverage Reporter.
+![Flask API Server - Open-source Flask Starter provided by AppSeed.](https://user-images.githubusercontent.com/51070104/126349643-264d4cf4-6d0b-4c24-8185-adf69409fa4e.png)
 
-- Run the following command to initiate test:
-  ```sh
-  $ pipenv run pytest
-  ```
-- To include Coverage Reporting as well:
-  ```sh
-  $ pipenv run pytest --cov-report xml --cov .
-  ```
+<br />
 
-## License
+## ✨ How to use the code
 
-&copy; MIT License
+> **Step #1** - Clone the project
+
+```bash
+$ git clone https://github.com/app-generator/flask-api-sample.git
+$ cd flask-api-sample
+```
+
+<br />
+
+> **Step #2** - create virtual environment using python3 and activate it (keep it outside our project directory)
+
+```bash
+$ # Virtualenv modules installation (Unix based systems)
+$ virtualenv env
+$ source env/bin/activate
+$
+$ # Virtualenv modules installation (Windows based systems)
+$ # virtualenv env
+$ # .\env\Scripts\activate
+```
+
+<br />
+
+> **Step #3** - Install dependencies in virtualenv
+
+```bash
+$ pip install -r requirements.txt
+```
+
+<br />
+
+> **Step #4** - setup `flask` command for our app
+
+```bash
+$ export FLASK_APP=run.py
+$ export FLASK_ENV=development
+```
+
+> Or for Windows-based systems
+
+```powershell
+$ (Windows CMD) set FLASK_APP=run.py
+$ (Windows CMD) set FLASK_ENV=development
+$
+$ (Powershell) $env:FLASK_APP = ".\run.py"
+$ (Powershell) $env:FLASK_ENV = "development"
+```
+
+<br />
+
+> **Step #5** - start test APIs server at `localhost:5000`
+
+```bash
+$ flask run
+```
+
+Use the API via `POSTMAN` or Swagger Dashboard.
+
+![Flask API Sample - Swagger Dashboard.](https://user-images.githubusercontent.com/51070104/151857217-ec364df4-cc90-413f-8bbe-a65e45dc8c35.png)
+
+<br />
+
+## ✨ Project Structure
+
+```bash
+api-server-flask/
+├── api
+│   ├── __init__.py
+│   ├── config.py
+│   ├── models.py
+│   └── routes.py
+├── README.md
+├── requirements.txt
+└── run.py
+```
+<br />
+
+---
+**[Flask API Sample](https://appseed.us/boilerplate-code/flask-api-boilerplate)** - provided by AppSeed [App Generator](https://appseed.us)
