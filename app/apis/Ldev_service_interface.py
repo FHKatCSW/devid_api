@@ -1,39 +1,46 @@
 from flask_restx import Namespace, Resource, fields
 
-api = Namespace("ldevid", description="IEEE 802.1 AR LDevID Service related operations")
+api = Namespace("LDevID", description="IEEE 802.1 AR LDevID Service related operations")
 
-ldevid = api.model(
-    "LDevID",
-    {
-        "status": fields.String(required=False, description="The setup status of the HSM (none, build, active)")
-    },
-)
 
-@api.route('/my-resource/<id>', endpoint='my-resource')
-@api.doc(params={'id': 'An ID'})
-class MyResource(Resource):
-    def get(self, id):
-        return {}
+@api.route('/<name>', endpoint='create')
+@api.doc(params={'name': 'A name'})
+class LDevID(Resource):
 
-    @api.doc(responses={403: 'Not Authorized'})
+    @api.doc("create")
     def post(self, id):
-        api.abort(403)
-
-
-
-@api.response(404, "Status not found")
-class Setup(Resource):
-
-    @api.doc("status")
-    @api.marshal_with(ldevid)
-    def status(self):
-        """Fetch the status of the HSM"""
+        """Create an LDevID key"""
         return {"status": "NotImplemented"}
 
-    @api.doc("verify_idevid")
-    @api.marshal_with(ldevid)
-    def verify_idevid(self):
-        """Create an IDevID key"""
+    @api.doc("delete")
+    def delete(self, name):
+        """Delete an LDevID certificate"""
         return {"status": "NotImplemented"}
+
+    @api.doc("get")
+    def get(self, name):
+        """Export an LDevID certificate"""
+        return {"status": "NotImplemented"}
+
+
+@api.route('/provision/<name>', endpoint='provision')
+@api.doc(params={'name': 'A name'})
+class ProvisionLDevID(Resource):
+
+    @api.doc("provision")
+    def post(self, name):
+        """Provision an LDevID certificate"""
+        return {"status": "NotImplemented"}
+
+
+@api.route('/verify/<name>', endpoint='verify')
+@api.doc(params={'name': 'A name'})
+class VerifyLDevID(Resource):
+
+    @api.doc("post")
+    def post(self, name):
+        """Verify an LDevID certificate"""
+        return {"status": "NotImplemented"}
+
 
 
