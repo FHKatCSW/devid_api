@@ -17,33 +17,23 @@ class LDevIDKey(Resource):
         """Delete an LDevID key"""
         return {"status": "NotImplemented"}
 
-    @api.doc("get")
-    @api.doc(params={'test': 'A test'})
-    def get(self, name):
-        """Export an LDevID certificate"""
-        return {"status": "NotImplemented"}
-
 @api.route('/cert/<name>', endpoint='ldevid-cert')
 @api.doc(params={'name': 'A name'})
 class LDevIDKey(Resource):
 
-    @api.doc("provision")
+    @api.doc("post")
     def post(self, name):
-        """Create an LDevID key"""
-        return {"status": "NotImplemented"}
-
-    @api.doc("create")
-    def post(self, name):
-        """Create an LDevID key"""
+        """Provision an LDevID certificate"""
         return {"status": "NotImplemented"}
 
     @api.doc("delete")
     def delete(self, name):
-        """Delete an LDevID key"""
+        """Delete an LDevID certificate"""
         return {"status": "NotImplemented"}
 
     @api.doc("get")
-    def export(self, name):
+    @api.doc(params={'test': 'A test'})
+    def get(self, name):
         """Export an LDevID certificate"""
         return {"status": "NotImplemented"}
 
