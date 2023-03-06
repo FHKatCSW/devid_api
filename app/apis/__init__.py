@@ -17,7 +17,7 @@ api = Api(
     description="Interfaces to communicate with an entity, setup a device and manage DevIDs according to IEEE 802.1 AR"
 )
 
-api.add_namespace(setup_interface, path="/setup")
+#api.add_namespace(setup_interface, path="/setup")
 api.add_namespace(mgmt_interface, path="/mgmt")
 api.add_namespace(idev_interface, path="/idev")
 api.add_namespace(ldev_interface, path="/ldev")

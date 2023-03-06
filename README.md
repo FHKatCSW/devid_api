@@ -8,13 +8,13 @@ IEEE 802.1 AR is a standard that defines a framework for secure device identity 
 
 ## API Definition
 
-| Route  | Verb | Info | Status | 
-|    --- | ---  | --- | --- | 
-| `/datas`    | **GET**    | return all items  | ✔️ | 
-|             | **POST**   | create a new item | ✔️ |
-| `/datas:id` | **GET**    | return one item   | ✔️ | 
-|             | **PUT**    | update item       | ✔️ |
-|             | **DELETE** | delete item       | ✔️ |
+| Route                | Verb       | Info | Status | 
+|----------------------|------------| --- | --- | 
+| `/mgmt/dev-id-cert/` | **POST**   | return all items  | ✔️ | 
+|                      | **POST**   | create a new item | ✔️ |
+| `/datas:id`          | **GET**    | return one item   | ✔️ | 
+|                      | **PUT**    | update item       | ✔️ |
+|                      | **DELETE** | delete item       | ✔️ |
 
 <br />
 
