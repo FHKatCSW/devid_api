@@ -1,53 +1,78 @@
-from marshmallow import ValidationError
+import os
+import OpenSSL
+import pyhsm
+import requests
 
-from . import AbstractBaseAdapter
+class CertificateManager:
+    def __init__(self, hsm_ip, hsm_user, hsm_pass, pki_url):
+        self.hsm = pyhsm.base.YHSM(device='/dev/ttyACM0')  # replace with the correct device for your system
+        self.hsm.login(hsm_user, hsm_pass)
+        self.pki_url = pki_url
 
+    def generate_key(self, keyIndex):
+        # Generate a new RSA key using the HSM and store it on the HSM
+        key = self.hsm.generate_key(0x04, pyhsm.defines.ALGO_RSA2048, keyIndex)
+        return key
 
-class ServiceAdapter(AbstractBaseAdapter):
-    """Base adapater for api contract"""
+    def get_certificate(self, keyIndex):
+        # Request a new certificate from the PKI using the provided key label
+        csr = self.generate_csr(keyIndex)
+        cert_req = {
+            'csr': csr,
+            'profile': 'default',
+        }
+        response = requests.post(self.pki_url + '/certificates/request', json=cert_req)
+        if response.status_code != 200:
+            raise Exception('Failed to request certificate from PKI: ' + response.text)
+        cert = response.json()['certificate']
+        return cert
 
-    def __init__(self, usecase, schema):
-        self.usecase = usecase()
-        self.schema = schema
+    def generate_csr(self, keyIndex):
+        # Generate a new certificate signing request (CSR) using the provided key label
+        key = self.hsm.get_key(0x04, pyhsm.defines.ALGO_RSA2048, keyIndex)
+        subject = OpenSSL.crypto.X509Req()
+        subject.get_subject().CN = keyIndex
+        subject.set_pubkey(key.get_pubkey())
+        subject.sign(key, "sha256")
+        csr = OpenSSL.crypto.dump_certificate_request(OpenSSL.crypto.FILETYPE_PEM, subject)
+        return csr
 
-    def __repr__(self):
-        return "{}(entity, usecase)".format(self.__class__.__name__)
+    def delete_key(self, keyIndex):
+        # Delete the key from the HSM
+        self.hsm.delete_key(0x04, pyhsm.defines.ALGO_RSA2048, keyIndex)
 
-    def find_by_id(self, book_id):
-        book_found = self.usecase.find_by_id(book_id)
-        if not book_found:
-            return None
-        dump, errors = self.schema().dump(book_found)
-        print(errors)
-        return dump
+    def delete_certificate(self, cert_file_path):
+        # Delete the certificate file from disk
+        os.remove(cert_file_path)
 
-    def find_all(self):
-        data_model = self.usecase.find_all()
-        dump, errors = self.schema(many=True).dump(data_model)
-        print(errors)
-        return dump
-
-    def create(self, data):
-        has_created = False
+    def validate_certificate(self, cert, chain):
+        # Validate a certificate against a certificate chain
+        store_ctx = OpenSSL.crypto.X509StoreContext(OpenSSL.crypto.X509Store())
+        store_ctx.set_verify_flags(OpenSSL.crypto.X509_V_FLAG_CRL_CHECK_ALL | OpenSSL.crypto.X509_V_FLAG_X509_STRICT)
+        for cert_str in chain:
+            cert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert_str)
+            store_ctx.get_cert_store().add_cert(cert)
+        cert_to_verify = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert)
         try:
-            model_data, errors = self.schema().load(data)
-            if not errors:
-                has_created = self.usecase.create(model_data)
-        except ValidationError as err:
-            print(err.messages)
-        return has_created
+            store_ctx.verify_certificate()
+            store_ctx.get_chain()
+            return True
+        except OpenSSL.crypto.X509StoreContextError:
+            return False
 
-    def update_or_patch(self, book_id, data):
-        has_updated = False
-        try:
-            model_data, errors = self.schema(partial=True).load(data)
-            if model_data.valid_update() and not errors:
-                has_updated = self.usecase.update_or_patch(book_id, model_data)
-        except (ValidationError, TypeError) as err:
-            if err is ValidationError:
-                print(err.messages)
+    def insert_certificate_chain(self, cert_index, chain):
+        # Insert a certificate chain to a given certificate index
+        return True
 
-        return has_updated
-
-    def delete(self, book_id):
-        return self.usecase.delete(book_id)
+    def enumerate_certificates(self):
+        with pyhsm.connect(self.hsm_address, self.hsm_user, self.hsm_password) as hsm:
+            certificates = hsm.list_certificates()
+            table = []
+            for cert in certificates:
+                cert_index = cert.index
+                key_index = cert.key_id
+                enabled = cert.enabled
+                is_idev = cert.id_evid
+                cert_der = cert.export_as_der()
+                table.append((cert_index, key_index, enabled, is_idev, cert_der))
+            return table

@@ -43,9 +43,7 @@ class DevIDKeyEnable(Resource):
 
     @api.doc("post")
     def post(self, certificateIndex, state):
-        """DevID certificate enable/disable (7.2.6)"""
-        # This operation allows the device administrator to disable use of a DevID without disabling the associated
-        # key, which might be in use by a different DevID.
+        """DevID key enable/disable (7-2-6): This operation allows the device administrator to disable use of a DevID without disabling the associated key, which might be in use by a different DevID"""
         return {"status": "NotImplemented"}
 
 @api.route('/dev-id-key/<keyIndex>/<state>', endpoint='dev-id-key')
