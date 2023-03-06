@@ -2,7 +2,7 @@ from flask_restx import Namespace, Resource, fields
 
 api = Namespace("LDevID", description="IEEE 802.1 AR LDevID Service related operations")
 
-@api.route('/key/generate/<keyIndex>', endpoint='ldevid-key')
+@api.route('/key/<keyIndex>', endpoint='ldevid-key')
 @api.doc(params={'keyIndex': 'The keyIndex of the LDevID'})
 class LDevIDKey(Resource):
 
