@@ -15,7 +15,7 @@ class LDevIDKey(Resource):
 @api.doc(params={'keyIndex': 'The keyIndex of the LDevID'})
 class LDevIDKeyGenerate(Resource):
 
-    @api.doc("create")
+    @api.doc("post")
     def post(self, keyIndex):
         """LDevID key generate (7-2-8): This operation allows the device administrator to generate an additional LDevID key within the DevID module - Newly generated keys are disabled and need to be explicitly enabled before use"""
         return {"status": "NotImplemented"}
@@ -25,7 +25,7 @@ class LDevIDKeyGenerate(Resource):
 class LDevIDKeyInsert(Resource):
     @api.doc("post")
     def post(self, keyIndex):
-        """LDevID key insert (7.2.9): This operation allows the device administrator to insert an externally generated LDevID key into the DevID module"""
+        """LDevID key insert (7-2-9): This operation allows the device administrator to insert an externally generated LDevID key into the DevID module"""
         return {"status": "NotImplemented"}
 
 @api.route('/cert/<certificateIndex>', endpoint='ldevid-cert')
@@ -39,7 +39,7 @@ class LDevIDCert(Resource):
 
     @api.doc("delete")
     def delete(self, certificateIndex):
-        """LDevID certificate delete (7.2.13): This operation implicitly deletes any certificate chain associated with the deleted certificate, it does not
+        """LDevID certificate delete (7-2-13): This operation implicitly deletes any certificate chain associated with the deleted certificate, it does not
         remove the associated DevID secret - This operation does not delete an IDevID certificate even if identified
         by the certificateIndex - The DevID module performs cryptographic zeroization on LDevID certificate material as part of the
         delete process"""
