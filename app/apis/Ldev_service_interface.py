@@ -8,9 +8,9 @@ class LDevIDKey(Resource):
 
     @api.doc("delete")
     def delete(self, keyIndex):
-        """LDevID key delete (7.2.10)"""
+        """LDevID key delete (7-2-10): The DevID module performs cryptographic zeroization on LDevID key storage as part of the delete process, removing both private and public key material"""
         # The DevID module performs cryptographic zeroization on LDevID key storage as part of the delete
-        # process, removing both private and public key material.
+        # process, removing both private and public key material
         return {"status": "NotImplemented"}
 
 @api.route('/key/generate/<keyIndex>', endpoint='ldevid-key-generate')
