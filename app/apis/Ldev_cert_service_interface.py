@@ -2,7 +2,7 @@ from flask_restx import Namespace, Resource, fields
 
 api = Namespace("LDevID-certificate", description="IEEE 802.1 AR LDevID Certificate related operations")
 
-@api.route('/cert/<certificateIndex>', endpoint='ldevid-cert')
+@api.route('/<certificateIndex>', endpoint='ldevid-cert')
 @api.doc(params={'certificateIndex': 'The certificateIndex of an LDevID certificate'})
 class LDevIDCert(Resource):
 
