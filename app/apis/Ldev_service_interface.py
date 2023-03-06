@@ -46,7 +46,7 @@ class LDevIDCert(Resource):
         return {"status": "NotImplemented"}
 
     @api.doc("get")
-    def get(self, certificateIndex):
+    def get_cert(self, certificateIndex):
         """LDevID certificate export (NOT STANDARDIZED): Exports a certificate associated to a certificateIndex"""
         return {"status": "NotImplemented"}
 
@@ -60,7 +60,7 @@ class LDevIDChain(Resource):
         return {"status": "NotImplemented"}
 
     @api.doc("get")
-    def get(self, certificateIndex):
+    def get_chain(self, certificateIndex):
         """LDevID certificate chain export (NOT STANDARDIZED): Exports a certificate chain associated to a certificateIndex"""
         return {"status": "NotImplemented"}
 
