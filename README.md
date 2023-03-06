@@ -1,8 +1,12 @@
-# Flask API Sample
+# IEEE 802.1 AR Python REST API
 
 <br />
 
-## ✨ API Definition
+## IEEE 802.1 AR in a nutshell
+
+IEEE 802.1 AR is a standard that defines a framework for secure device identity and authentication in a network. It provides a way for devices to securely and reliably establish their identity and authenticate with other devices in the network. The standard specifies the use of digital certificates and a public key infrastructure (PKI) to achieve this goal. The standard also defines a set of protocols and procedures for managing the digital certificates and ensuring their integrity. Overall, IEEE 802.1 AR is a crucial standard for ensuring the security and trustworthiness of devices in a networked environment.
+
+## API Definition
 
 | Route  | Verb | Info | Status | 
 |    --- | ---  | --- | --- | 
@@ -98,5 +102,3 @@ api-server-flask/
 ```
 <br />
 
----
-**[Flask API Sample](https://appseed.us/boilerplate-code/flask-api-boilerplate)** - provided by AppSeed [App Generator](https://appseed.us)
