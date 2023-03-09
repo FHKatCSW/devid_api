@@ -36,6 +36,15 @@ class Sign(Resource):
         # of privacy by limiting exposure of the device’s cryptographic identity.
         return {"status": "NotImplemented"}
 
+@api.route('/status/rest', endpoint='status-rest')
+class RestStatus(Resource):
+
+    @api.doc("post")
+    def post(self):
+        """Status of the REST API"""
+        return {"success": True,
+                "message": "NotImplemented"}
+
 @api.route('/status/hsm', endpoint='status-hsm')
 class HsmStatus(Resource):
 
