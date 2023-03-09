@@ -38,8 +38,8 @@ class HighLvlLdevProvision(Resource):
 @api.route('/actual', endpoint='highlvl-ldev-get')
 class HighLvlLdevProvision(Resource):
 
-    @api.doc("post")
-    def post(self):
+    @api.doc("get")
+    def get(self):
         """Only for demonstration purpose: Provide the content of the most recent LDevID certificate"""
         return {"success": True,
                 "message": "NotImplemented"}

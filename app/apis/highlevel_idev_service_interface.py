@@ -37,8 +37,8 @@ class HighLvlIDevProvision(Resource):
 
 @api.route('/actual', endpoint='highlvl-idev-get')
 class HighLvlIDevProvision(Resource):
-    @api.doc("post")
-    def post(self):
+    @api.doc("get")
+    def get(self):
         """Only for demonstration purpose: Provide the content of the actual IDevID certificate"""
         return {"success": True,
                 "message": "NotImplemented"}
