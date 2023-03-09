@@ -3,7 +3,7 @@ import OpenSSL
 import pyhsm
 import requests
 
-class CertificateManager:
+class ServiceManager:
     def __init__(self, hsm_ip, hsm_user, hsm_pass, pki_url):
         self.hsm = pyhsm.base.YHSM(device='/dev/ttyACM0')  # replace with the correct device for your system
         self.hsm.login(hsm_user, hsm_pass)
