@@ -4,7 +4,7 @@ from app.core.adapters.service_adapter import ServiceManager
 
 api = Namespace("Highlevel-LDevID", description="Highlevel REST API Calls for the LDevID module")
 
-@api.route('/delete', endpoint='highlvl-idev-del')
+@api.route('/delete', endpoint='highlvl-ldev-del')
 class HighLvlLdevDelete(Resource):
 
     @api.doc("delete")
@@ -17,7 +17,7 @@ class HighLvlLdevDelete(Resource):
         return {"success": True,
                 "message": "NotImplemented"}
 
-@api.route('/validate', endpoint='highlvl-idev-val')
+@api.route('/validate', endpoint='highlvl-ldev-val')
 class HighLvlLdevValidate(Resource):
 
     @api.doc("post")
@@ -26,7 +26,7 @@ class HighLvlLdevValidate(Resource):
         return {"success": True,
                 "message": "NotImplemented"}
 
-@api.route('/provision', endpoint='highlvl-idev-prov')
+@api.route('/provision', endpoint='highlvl-ldev-prov')
 class HighLvlLdevProvision(Resource):
 
     @api.doc("post")
@@ -35,7 +35,7 @@ class HighLvlLdevProvision(Resource):
         return {"success": True,
                 "message": "NotImplemented"}
 
-@api.route('/actual', endpoint='highlvl-idev-get')
+@api.route('/actual', endpoint='highlvl-ldev-get')
 class HighLvlLdevProvision(Resource):
 
     @api.doc("post")
