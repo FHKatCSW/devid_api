@@ -36,6 +36,33 @@ class Sign(Resource):
         # of privacy by limiting exposure of the device’s cryptographic identity.
         return {"status": "NotImplemented"}
 
+@api.route('/status/hsm', endpoint='status-hsm')
+class HsmStatus(Resource):
+
+    @api.doc("post")
+    def post(self):
+        """Status of the HSM"""
+        return {"success": True,
+                "message": "NotImplemented"}
+
+@api.route('/status/idevid', endpoint='status-idevid')
+class IDevIdStatus(Resource):
+
+    @api.doc("post")
+    def post(self):
+        """Status of the IDevID"""
+        return {"success": True,
+                "message": "NotImplemented"}
+
+@api.route('/status/ldevid', endpoint='status-ldevid')
+class LDevIdStatus(Resource):
+
+    @api.doc("post")
+    def post(self):
+        """Status of the LDevID"""
+        return {"success": True,
+                "message": "NotImplemented"}
+
 @api.route('/dev-id-cert/<certificateIndex>/<state>', endpoint='dev-id-cert')
 @api.doc(params={'certificateIndex': 'The certificateIndex of the DevID',
                  'state': 'The desired state of a certificateIndex'})
