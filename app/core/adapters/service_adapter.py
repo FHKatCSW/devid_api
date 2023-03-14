@@ -1,12 +1,13 @@
 import os
 import OpenSSL
-import pyhsm
+from pyhsm.hsmclient import HsmClient
 import requests
 
 class ServiceManager:
-    def __init__(self, hsm_ip, hsm_user, hsm_pass, pki_url):
-        self.hsm = pyhsm.base.YHSM(device='/dev/ttyACM0')  # replace with the correct device for your system
-        self.hsm.login(hsm_user, hsm_pass)
+    def __init__(self, hsm_user, hsm_pass, pki_url):
+        c = HsmClient(pkcs11_lib="/usr/lib/vendorp11.so")
+        c.open_session(slot=1)
+        c.login(pin="partition_password")
         self.pki_url = pki_url
 
     def generate_key(self, keyIndex):
