@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 
-from app.core.adapters.service_adapter import ServiceManager
+#from app.core.adapters.service_adapter import ServiceManager
 
 api = Namespace("Highlevel-LDevID", description="Highlevel REST API Calls for the LDevID module")
 
