@@ -1,7 +1,5 @@
 from flask_restx import Namespace, Resource, fields
 
-from app.core.adapters.service_adapter import ServiceManager
-
 api = Namespace("Highlevel-IDevID", description="Highlevel REST API Calls for the IDevID module")
 
 @api.route('/delete', endpoint='highlvl-idev-del')
