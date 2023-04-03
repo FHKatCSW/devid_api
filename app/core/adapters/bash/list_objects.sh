@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# bash /home/admin/devid_raspi/ishield/python/bash/list_objects.sh "0" "1234"
+# bash /home/admin/devid_api/app/core/adapters/bash/list_objects.sh "0" "1234"
 
 # Check if all required arguments are provided
 if [ $# -ne 2 ]; then
