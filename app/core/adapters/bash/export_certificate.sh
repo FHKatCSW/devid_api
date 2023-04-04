@@ -33,8 +33,10 @@ do
     esac
 done
 
+PKCS11_TOOL=/usr/bin/pkcs11-tool
+
 # Use pkcs11-tool to export certificate from HSM
-pkcs11-tool --module "$PKCS11_MODULE" \
+$PKCS11_TOOL --module "$PKCS11_MODULE" \
             --export-certificate \
             --type cert \
             --id "$CERT_ID" \

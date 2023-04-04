@@ -3,7 +3,7 @@ import logger
 
 
 class CertHandler:
-    def __init__(self, pin, cert_id, pkcs11_module = '/usr/lib/opensc-pkcs11.so'):
+    def __init__(self, pin, cert_id, pkcs11_module='/usr/lib/opensc-pkcs11.so'):
         self.logger = logger.get_logger("CertHandler")
 
         self.pkcs11_module = pkcs11_module

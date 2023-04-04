@@ -45,8 +45,11 @@ then
     exit 1
 fi
 
+PKCS11_TOOL=/usr/bin/pkcs11-tool
+PKCS11_MODULE=/usr/lib/opensc-pkcs11.so
+
 # Use pkcs11-tool to insert certificate into HSM
-pkcs11-tool --module /usr/lib/pkcs11/libsofthsm2.so \
+$PKCS11_TOOL --module $PKCS11_MODULE \
             --slot "$HSM_SLOT" \
             --pin "$HSM_PIN" \
             --write-object "$CERTIFICATE_PATH" \
