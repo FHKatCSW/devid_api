@@ -39,4 +39,4 @@ then
 fi
 
 # Run the PKCS11 tool command to delete the object
-$PKCS11_TOOL --delete-object --type "$key_type"key --id=$id --login --pin $pin
+$PKCS11_TOOL --delete-object --type "$key_type" --id=$id --login --pin $pin

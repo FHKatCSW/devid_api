@@ -100,13 +100,12 @@ class HsmObjects:
 
     def delete_hsm_object(self, type, key_id):
         command = [
-            "/usr/bin/pkcs11-tool",
-            f'--delete-object',
-            f'--type {type}',
-            f'--id "{key_id}"',
+            ".bash/delete_keys_on_hsm.sh",
+            f'--key_type={type}',
+            f'--id={key_id}',
+            f'--pin={self.pin}',
+
         ]
-        command += [f'--login']
-        command += [f'--pin {self.pin}']
 
         print("Executing command:", " ".join(command))
         subprocess.call(command)
