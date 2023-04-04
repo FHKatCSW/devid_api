@@ -20,7 +20,7 @@ class CertHandler:
         self.logger.info("--cert id: {}; cert label: {}".format(self.cert_id, cert_label))
 
         command = [
-            "./bash/insert_cert.sh",
+            "./bash/insert_certificate.sh",
             f'--certificate_path={certificate_path}',
             f'--hsm_slot={slot}',
             f'--hsm_pin={self.pin}',
@@ -43,7 +43,7 @@ class CertHandler:
         self.output_path = output_directory
 
         command = [
-            "./bash/export_cert.sh",
+            "./bash/export_certificate.sh",
             f'--module={self.pkcs11_module}',
             f'--id={self.cert_id}',
             f'--output_file={target_path}',
