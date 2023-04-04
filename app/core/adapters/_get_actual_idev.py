@@ -1,5 +1,5 @@
-from app.core.adapters.cert_handler import CertHandler
-from app.core.adapters.hsm_objects import HsmObjects
+from cert_handler import CertHandler
+from hsm_objects import HsmObjects
 
 
 def main():
