@@ -59,6 +59,7 @@ class CertHandler:
             self.cert_content = f.read()
 
     def parse_certificate(self):
+        print(self.cert_content)
         # Parse the certificate
         cert = x509.load_pem_x509_certificate(self.cert_content, default_backend())
 
