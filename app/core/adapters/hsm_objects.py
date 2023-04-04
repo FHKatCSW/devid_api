@@ -131,4 +131,4 @@ def get_actual_idev():
     print(hsm_objects.get_actual_idev_id())
 
 if __name__ == "__main__":
-    get_actual_idev()
+    main()
