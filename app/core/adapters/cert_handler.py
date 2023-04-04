@@ -55,7 +55,7 @@ class CertHandler:
         self.load_cert()
         if pem:
             target_path_pem = os.path.join(target_dir, "{}.pem".format(self.cert_id))
-            self.logger.info("--output file: {}".format(self.target_path_pem))
+            self.logger.info("--output file: {}".format(target_path_pem))
             # Save the PEM certificate to a file
             with open(target_path_pem, "wb") as pem_file:
                 pem_file.write(self.cert_content)
