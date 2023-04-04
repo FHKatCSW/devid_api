@@ -147,4 +147,4 @@ def delete_idev():
     hsm_objects.delete_idev_keys()
 
 if __name__ == "__main__":
-    delete_idev()
+    main()
