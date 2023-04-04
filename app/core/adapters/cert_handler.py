@@ -12,6 +12,7 @@ class CertHandler:
         self.cert_id = cert_id
         self.pin = pin
         self.output_path = None
+        self.target_path = None
         self.cert_content = None
         self.parsed_cert = {}
 
@@ -35,28 +36,27 @@ class CertHandler:
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
             self.logger.info(f"Created directory at {target_dir}")
-        target_path = os.path.join(target_dir, "{}.pem".format(self.cert_id))
+        self.target_path = os.path.join(target_dir, "{}.pem".format(self.cert_id))
 
         self.logger.info("-export certificate")
         self.logger.info("--cert id: {}".format(self.cert_id))
-        self.logger.info("--output file: {}".format(target_path))
-        self.output_path = output_directory
+        self.logger.info("--output file: {}".format(self.target_path))
 
         command = [
             "./bash/export_certificate.sh",
             f'--module={self.pkcs11_module}',
             f'--id={self.cert_id}',
-            f'--output_file={target_path}',
+            f'--output_file={self.target_path}',
             f'--pin={self.pin}',
         ]
 
         subprocess.call(command)
         self.load_cert()
-        return target_path
+        return self.target_path
 
     def load_cert(self):
         # Load the PEM certificate
-        with open(self.output_path, 'rb') as f:
+        with open(self.target_path, 'rb') as f:
             self.cert_content = f.read()
 
     def parse_certificate(self):
