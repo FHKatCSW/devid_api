@@ -105,10 +105,11 @@ class HsmObjects:
             f'--type {type}',
             f'--id {key_id}',
         ]
+        command += [f'--login']
+        command += [f'--pin {self.pin}']
 
-        if type == "privkey" or type == "pubkey":
-            command += [f'--login']
-            command += [f'--pin {self.pin}']
+        #if type == "privkey" or type == "pubkey":
+
 
         print("Executing command:", " ".join(command))
         subprocess.call(command)
