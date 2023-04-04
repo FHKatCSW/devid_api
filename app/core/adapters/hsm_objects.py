@@ -61,6 +61,15 @@ class HsmObjects:
             if key_label in keys_str[key_type]:
                 return keys_str[key_type][key_label]["ID"]
 
+    def get_actual_idev_id(self):
+
+        data = self.to_dict()
+
+        for key, value in data['private_keys'].items():
+            if key.startswith('idev'):
+                return value['ID']
+        return None
+
     def delete_all_keys(self):
         keys = self.to_dict()
         self.delete_keys(keys)
@@ -114,5 +123,12 @@ def delete_idev():
     )
     hsm_objects.delete_idev_keys()
 
+def get_actual_idev():
+    hsm_objects = HsmObjects(
+        slot_num=0,
+        pin='1234'
+    )
+    print(hsm_objects.get_actual_idev_id())
+
 if __name__ == "__main__":
-    main()
+    get_actual_idev()

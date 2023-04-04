@@ -1,6 +1,8 @@
 from flask_restx import Namespace, Resource, fields
 from app.core.adapters.hsm_objects import HsmObjects
 from app.core.adapters.bootstrap_process import BootstrapDevId
+from app.core.adapters.cert_handler import CertHandler
+
 
 api = Namespace("Highlevel-IDevID", description="Highlevel REST API Calls for the IDevID module")
 
@@ -61,5 +63,18 @@ class HighLvlIDevProvision(Resource):
     @api.doc("get")
     def get(self):
         """Only for demonstration purpose: Provide the content of the actual IDevID certificate"""
+        try:
+            hsm_objects = HsmObjects(
+                slot_num=0,
+                pin='1234'
+            )
+            hsm_objects.filter_id_by_label("")
+
+            export_cert = CertHandler(
+                pin="1234",
+                cert_id=5,
+            )
+            export_cert.export_certificate(output_directory="/home/admin/")
+
         return {"success": True,
                 "message": "NotImplemented"}
