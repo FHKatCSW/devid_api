@@ -89,20 +89,21 @@ class HsmObjects:
 
     def delete_keys(self, keys):
         for key_type in keys:
-            priv_pub_key = "priv" if key_type == "private_keys" else "pub"
+            type = "privkey" if key_type == "private_keys" else "pubkey" if key_type == "public_keys" else "cert"
             for key_name in keys[key_type]:
                 key_data = keys[key_type][key_name]
-                self.delete_key(priv_pub_key, key_data['ID'])
+                self.delete_hsm_object(type, key_data['ID'])
+
 
     def delete_key_by_label(self, key_label):
         self.filter_id_by_label(key_label)
 
-    def delete_key(self, priv_pub_key, key_id):
+    def delete_hsm_object(self, priv_pub_key, key_id):
         command = [
             "/usr/bin/pkcs11-tool",
             f'--delete-object',
-            f'--type {priv_pub_key}key',
-            f'--id={key_id}',
+            f'--type {priv_pub_key}',
+            f'--id {key_id}',
             f'--login',
             f'--pin {self.pin}',
         ]
