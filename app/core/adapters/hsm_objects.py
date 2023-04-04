@@ -50,7 +50,7 @@ class HsmObjects:
                 elif key == 'subject':
                     current_obj_subject = value
 
-                if current_obj_label and current_obj_id and current_obj_usage and current_obj_access:
+                if current_obj_label:
 
                     obj_data = {}
 
