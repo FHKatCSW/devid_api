@@ -78,7 +78,7 @@ class CertHandler:
         validFrom_formatted = validFrom.strftime("%Y-%m-%d %H:%M:%S")
         validTill = cert.not_valid_after
         validTill_formatted = validTill.strftime("%Y-%m-%d %H:%M:%S")
-        self.parsed_cert["validFrome"] = validFrom_formatted
+        self.parsed_cert["validFrom"] = validFrom_formatted
         self.parsed_cert["validTill"] = validTill_formatted
 
         # Extract the serial number
@@ -89,11 +89,15 @@ class CertHandler:
 
         org_name_attr = cert.subject.get_attributes_for_oid(x509.NameOID.ORGANIZATION_NAME)
         org_unit_name_attr = cert.subject.get_attributes_for_oid(x509.NameOID.ORGANIZATIONAL_UNIT_NAME)
+        serial_num_attr = cert.subject.get_attributes_for_oid(x509.NameOID.SERIAL_NUMBER)
+
 
         # Extract the CN, O, and OU fields from the subject
         self.parsed_cert["cn"] = subject.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
         self.parsed_cert["o"] = org_name_attr[0].value if org_name_attr else None
         self.parsed_cert["ou"] = org_unit_name_attr[0].value if org_unit_name_attr else None
+        self.parsed_cert["serial_number"] = serial_num_attr[0].value if serial_num_attr else None
+
 
         return self.parsed_cert
 
