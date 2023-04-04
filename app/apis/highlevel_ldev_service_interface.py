@@ -1,6 +1,7 @@
 from flask_restx import Namespace, Resource, fields
-
-#from app.core.adapters.service_adapter import ServiceManager
+from app.core.adapters.hsm_objects import HsmObjects
+from app.core.adapters.bootstrap_process import BootstrapDevId
+from app.core.adapters.cert_handler import CertHandler
 
 api = Namespace("Highlevel-LDevID", description="Highlevel REST API Calls for the LDevID module")
 
@@ -10,12 +11,15 @@ class HighLvlLdevDelete(Resource):
     @api.doc("delete")
     def delete(self):
         """Only for demonstration purpose: Delete the most recent LDevID (key + cert)"""
-        del_ldev = ServiceManager()
-        certificates = del_ldev.enumerate_certificates()
-        del_ldev.delete_key()
-        del_ldev.delete_certificate()
-        return {"success": True,
-                "message": "NotImplemented"}
+        try:
+            del_idev = HsmObjects(slot_num=0,
+                              pin="1234")
+            del_idev.delete_ldev_objects()
+            return {"success": True,
+                    "message": "Keys deleted"}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err)}
 
 @api.route('/validate', endpoint='highlvl-ldev-val')
 class HighLvlLdevValidate(Resource):

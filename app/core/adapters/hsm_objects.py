@@ -70,24 +70,24 @@ class HsmObjects:
                 return value['ID']
         return None
 
-    def delete_all_keys(self):
+    def delete_all_objects(self):
         keys = self.to_dict()
-        self.delete_keys(keys)
+        self.delete_objects(keys)
 
 
-    def delete_ldev_keys(self):
-        self.delete_key_by_type("ldev")
+    def delete_ldev_objects(self):
+        self.delete_objects_by_type("ldev")
 
 
-    def delete_idev_keys(self):
-        self.delete_key_by_type("idev")
+    def delete_idev_objects(self):
+        self.delete_objects_by_type("idev")
 
-    def delete_key_by_type(self, type):
+    def delete_objects_by_type(self, type):
         keys = self.to_dict()
         filtered_dict = {k1: {k2: v2 for k2, v2 in v1.items() if k2.startswith(type)} for k1, v1 in keys.items()}
-        self.delete_keys(filtered_dict)
+        self.delete_objects(filtered_dict)
 
-    def delete_keys(self, keys):
+    def delete_objects(self, keys):
         for key_type in keys:
             type = "privkey" if key_type == "private_keys" else "pubkey" if key_type == "public_keys" else "cert"
             for key_name in keys[key_type]:
@@ -129,7 +129,7 @@ def delete_idev():
         slot_num=0,
         pin='1234'
     )
-    hsm_objects.delete_idev_keys()
+    hsm_objects.delete_idev_objects()
 
 def get_actual_idev():
     hsm_objects = HsmObjects(

@@ -15,7 +15,7 @@ class HighLvlIDevDelete(Resource):
         try:
             del_idev = HsmObjects(slot_num=0,
                               pin="1234")
-            del_idev.delete_idev_keys()
+            del_idev.delete_idev_objects()
             return {"success": True,
                     "message": "Keys deleted"}
         except Exception as err:
@@ -64,14 +64,16 @@ class HighLvlIDevProvision(Resource):
     def get(self):
         """Only for demonstration purpose: Provide the content of the actual IDevID certificate"""
         try:
+            slot_num=0
+            pin="1234"
             hsm_objects = HsmObjects(
-                slot_num=0,
-                pin='1234'
+                slot_num=slot_num,
+                pin=pin
             )
             hsm_idev_id = hsm_objects.get_actual_idev_id()
 
             export_cert = CertHandler(
-                pin="1234",
+                pin=pin,
                 cert_id=hsm_idev_id,
             )
             export_cert.export_certificate(output_directory="/home/admin/")

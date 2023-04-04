@@ -6,7 +6,7 @@ def main():
         slot_num=0,
         pin='1234'
     )
-    hsm_objects.delete_all_keys()
+    hsm_objects.delete_all_objects()
 
 if __name__ == "__main__":
     main()

@@ -33,7 +33,7 @@ class CertHandler:
 
         subprocess.call(command)
 
-    def export_certificate(self, output_directory):
+    def export_certificate(self, output_directory, pem = False):
         target_dir = os.path.join(output_directory, "temp_certs")
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
@@ -53,7 +53,14 @@ class CertHandler:
 
         subprocess.call(command)
         self.load_cert()
-        return self.target_path_der
+        if pem:
+            target_path_pem = os.path.join(target_dir, "{}.pem".format(self.cert_id))
+            # Save the PEM certificate to a file
+            with open(target_path_pem, "wb") as pem_file:
+                pem_file.write(self.cert_content)
+            return target_path_pem
+        else:
+            return self.target_path_der
 
     def load_cert(self):
         # Load the PEM certificate
