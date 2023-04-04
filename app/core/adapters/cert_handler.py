@@ -3,6 +3,8 @@ import logger
 import os
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
+import OpenSSL.crypto as crypto
+
 
 class CertHandler:
     def __init__(self, pin, cert_id, pkcs11_module='/usr/lib/opensc-pkcs11.so'):
@@ -12,7 +14,7 @@ class CertHandler:
         self.cert_id = cert_id
         self.pin = pin
         self.output_path = None
-        self.target_path = None
+        self.target_path_der = None
         self.cert_content = None
         self.parsed_cert = {}
 
@@ -36,27 +38,32 @@ class CertHandler:
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
             self.logger.info(f"Created directory at {target_dir}")
-        self.target_path = os.path.join(target_dir, "{}.pem".format(self.cert_id))
+        self.target_path_der = os.path.join(target_dir, "{}.der".format(self.cert_id))
 
         self.logger.info("-export certificate")
         self.logger.info("--cert id: {}".format(self.cert_id))
-        self.logger.info("--output file: {}".format(self.target_path))
+        self.logger.info("--output file: {}".format(self.target_path_der))
 
         command = [
             "./bash/export_certificate.sh",
             f'--id={self.cert_id}',
-            f'--output_file={self.target_path}',
+            f'--output_file={self.target_path_der}',
             f'--pin={self.pin}',
         ]
 
         subprocess.call(command)
         self.load_cert()
-        return self.target_path
+        return self.target_path_der
 
     def load_cert(self):
         # Load the PEM certificate
-        with open(self.target_path, 'rb') as f:
-            self.cert_content = f.read()
+        with open(self.target_path_der, 'rb') as der_data:
+            der_data = der_data.read()
+
+        # Convert the DER certificate to PEM format
+        cert = crypto.load_certificate(crypto.FILETYPE_ASN1, der_data)
+        self.cert_content = crypto.dump_certificate(crypto.FILETYPE_PEM, cert)
+
 
     def parse_certificate(self):
         print(self.cert_content)
