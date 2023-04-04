@@ -82,12 +82,13 @@ class CertHandler:
         # Extract the subject
         subject = cert.subject
 
-        print(subject)
+        org_name_attr = cert.subject.get_attributes_for_oid(x509.NameOID.ORGANIZATION_NAME)
+        org_unit_name_attr = cert.subject.get_attributes_for_oid(x509.NameOID.ORGANIZATIONAL_UNIT_NAME)
 
         # Extract the CN, O, and OU fields from the subject
         self.parsed_cert["cn"] = subject.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
-        self.parsed_cert["o"] = subject.get_attributes_for_oid(x509.NameOID.ORGANIZATION_NAME)[0].value
-        self.parsed_cert["ou"] = subject.get_attributes_for_oid(x509.NameOID.ORGANIZATIONAL_UNIT_NAME)[0].value
+        self.parsed_cert["o"] = org_name_attr[0].value if org_name_attr else None
+        self.parsed_cert["ou"] = org_unit_name_attr[0].value if org_unit_name_attr else None
 
         return self.parsed_cert
 
