@@ -74,7 +74,12 @@ class CertHandler:
         self.parsed_cert["issuer"] = cert.issuer
 
         # Extract the validity period
-        self.parsed_cert["validity"] = cert.not_valid_before, cert.not_valid_after
+        validFrom = cert.not_valid_before
+        validFrom_formatted = validFrom.strftime("%Y-%m-%d %H:%M:%S")
+        validTill = cert.not_valid_after
+        validTill_formatted = validTill.strftime("%Y-%m-%d %H:%M:%S")
+        self.parsed_cert["validFrome"] = validFrom_formatted
+        self.parsed_cert["validTill"] = validTill_formatted
 
         # Extract the serial number
         self.parsed_cert["serial_number"] = cert.serial_number
