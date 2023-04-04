@@ -13,24 +13,32 @@ class CertHandler:
     def insert_certificate(self, certificate_path, slot, cert_label):
         self.logger.info("-insert certificate")
         self.logger.info("--cert id: {}; cert label: {}".format(self.cert_id, cert_label))
-        subprocess.call(['bash', 'insert_cert.sh',
-                         '--certificate_path', certificate_path,
-                         '--hsm_slot', slot,
-                         '--hsm_pin', self.pin,
-                         '--id', self.cert_id,
-                         '--label', cert_label])
+
+        command = [
+            "./bash/insert_cert.sh",
+            f'--certificate_path={certificate_path}',
+            f'--hsm_slot={slot}',
+            f'--hsm_pin={self.pin}',
+            f'--id={self.cert_id}',
+            f'--label={cert_label}',
+        ]
+
+        subprocess.call(command)
 
     def export_certificate(self, output_file):
         self.logger.info("-export certificate")
         self.logger.info("--cert id: {}".format(self.cert_id))
         self.logger.info("--output file: {}".format(output_file))
 
-        cmd = ['bash', 'export_cert.sh',
-               '--module', self.pkcs11_module,
-               '--id', self.cert_id,
-               '--output_file', output_file,
-               '--pin', self.pin]
-        subprocess.call(cmd)
+        command = [
+            "./bash/export_cert.sh",
+            f'--module={self.pkcs11_module}',
+            f'--id={self.cert_id}',
+            f'--output_file={output_file}',
+            f'--pin={self.pin}',
+        ]
+
+        subprocess.call(command)
 
 
 def import_certificate():
