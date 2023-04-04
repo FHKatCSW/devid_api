@@ -20,6 +20,7 @@ class BootstrapDevId:
         self.valid_idev = None
         self.idev = False
         self.ldev = False
+        self.hsm_id = None
 
 
     def setup_idev_id(self):
@@ -71,6 +72,11 @@ class BootstrapDevId:
                          public_key_label=self.public_key_label,
                          private_key_label=self.private_key_label)
         hsm_key.generate_rsa_key_pair()
+        hsm_objects = HsmObjects(
+            slot_num=self.slot,
+            pin=self.pin
+        )
+        self.hsm_id = hsm_objects.filter_id_by_label(key_label=self.private_key_label)
         self.key_generated = True
 
     def generate_csr(self, key_label=None, cn=None, o=None, ou=None, c=None, serial_number=None):
@@ -120,28 +126,28 @@ class BootstrapDevId:
 
         insert_cert = CertHandler(
             pin=self.pin,
-            cert_id=self.id,
+            cert_id=self.hsm_id,
         )
         insert_cert.insert_certificate(slot=self.slot,
                                        cert_label=self.cn,
                                        certificate_path=self.cert_path)
 
-    def export_certificate(self, cert_id, tmp_cert_path):
+    def export_certificate(self):
         export_cert = CertHandler(
             pin=self.pin,
-            cert_id=cert_id,
+            cert_id=self.hsm_id,
         )
-        export_cert.export_certificate(output_file=tmp_cert_path)
+        export_cert.export_certificate(output_directory="/home/admin")
 
-    def validate_idev_certifificate(self, ca_chain_url, idev_cert_path):
+    def validate_idev_certifificate(self, ca_chain_url):
         self.logger.info("？ Validate certificate")
 
         self.logger.info("-Export IDev Certificate to tmp storage")
-        self.export_certificate(cert_id=100, tmp_cert_path='/home/admin/certs/id_{}/idev.cert.pem'.format(self.id))
+        cert_path = self.export_certificate()
 
         public_web_validator = CertValidator()
         public_web_validator._load_ca_certs_via_public_web(ca_chain_url)
-        self.valid_idev = public_web_validator.validate(idev_cert_path)
+        self.valid_idev = public_web_validator.validate(cert_path)
 
     def validate_key_label_exists(self):
         hsm_objects = HsmObjects(

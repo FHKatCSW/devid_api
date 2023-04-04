@@ -52,6 +52,7 @@ class CertHandler:
 
         subprocess.call(command)
         self.load_cert()
+        return target_path
 
     def load_cert(self):
         # Load the PEM certificate
