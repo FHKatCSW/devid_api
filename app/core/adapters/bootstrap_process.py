@@ -21,12 +21,13 @@ class BootstrapDevId:
         self.idev = False
         self.ldev = False
         self.hsm_id = None
+        self.id = random.randint(10000, 99999)
+
 
 
     def setup_idev_id(self):
 
         self.idev = True
-        self.id = 100 # id 100 is reserved for the IDevID
         self.private_key_label="idev_pvt_key_{}".format(self.id)
         self.public_key_label="idev_pub_key_{}".format(self.id)
         self.cert_path='/home/admin/certs/id_{}/idev_cert_{}.cert.pem'.format(self.id, self.id)
@@ -34,14 +35,7 @@ class BootstrapDevId:
 
         self.presetup()
 
-    def setup_ldev_id(self, id=None):
-
-        self.ldev = True
-        if id:
-            self.id = id
-        else:
-            self.id = random.randint(10000, 99999)
-
+    def setup_ldev_id(self):
         self.private_key_label = "ldev_pvt_key_{}".format(self.id)
         self.public_key_label = "ldev_pub_key_{}".format(self.id)
         self.cert_path='/home/admin/certs/id_{}/ldev_cert_{}.cert.pem'.format(self.id, self.id)
