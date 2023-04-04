@@ -28,6 +28,7 @@ class BootstrapDevId:
         self.id = 100 # id 100 is reserved for the IDevID
         self.private_key_label="idev_pvt_key_{}".format(self.id)
         self.public_key_label="idev_pub_key_{}".format(self.id)
+        self.cert_path='/home/admin/certs/id_{}/idev_cert_{}.cert.pem'.format(self.id, self.id)
 
         self.presetup()
 
@@ -41,6 +42,7 @@ class BootstrapDevId:
 
         self.private_key_label = "ldev_pvt_key_{}".format(self.id)
         self.public_key_label = "ldev_pub_key_{}".format(self.id)
+        self.cert_path='/home/admin/certs/id_{}/ldev_cert_{}.cert.pem'.format(self.id, self.id)
 
         self.presetup()
 
@@ -99,9 +101,6 @@ class BootstrapDevId:
 
     def request_cert(self, base_url, p12_file, p12_pass, certificate_profile_name, end_entity_profile_name, certificate_authority_name):
         self.logger.info("📄 Request certificate")
-
-
-        self.cert_path='/home/admin/certs/id_{}/ldev_cert_{}.cert.pem'.format(self.id, self.id)
 
         cert_req = CertRequest(
             base_url=base_url,

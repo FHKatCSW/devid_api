@@ -1,40 +1,14 @@
 #!/bin/bash
 
-# Parse command-line arguments
-while [[ $# -gt 0 ]]
-do
-    key="$1"
 
-    case $key in
-        --certificate_path)
-            CERTIFICATE_PATH="$2"
-            shift
-            shift
-            ;;
-        --hsm_slot)
-            HSM_SLOT="$2"
-            shift
-            shift
-            ;;
-        --hsm_pin)
-            HSM_PIN="$2"
-            shift
-            shift
-            ;;
-        --id)
-            CERT_ID="$2"
-            shift
-            shift
-            ;;
-        --label)
-            CERT_LABEL="$2"
-            shift
-            shift
-            ;;
-        *)
-            echo "Unknown option: $1"
-            exit 1
-            ;;
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --certificate_path=*) CERTIFICATE_PATH="${1#*=}"; shift 1;;
+        --hsm_slot=*) HSM_SLOT="${1#*=}"; shift 1;;
+        --hsm_pin=*) HSM_PIN="${1#*=}"; shift 1;;
+        --id=*) CERT_ID="${1#*=}"; shift 1;;
+        --label=*) CERT_LABEL="${1#*=}"; shift 1;;
+        *) echo "Unknown parameter: $1"; exit 1;;
     esac
 done
 
