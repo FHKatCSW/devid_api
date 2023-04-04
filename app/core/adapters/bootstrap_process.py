@@ -81,7 +81,6 @@ class BootstrapDevId:
                 raise Exception("key_label needs to be defined if there was no prior key generation")
 
         csr_generate = GenerateCsr(
-            library_path='/usr/lib/opensc-pkcs11.so',
             slot_num=self.slot,
             pin=self.pin,
             key_label=key_label,
@@ -149,7 +148,7 @@ class BootstrapDevId:
             slot_num=self.slot,
             pin=self.pin
         )
-        key_label_on_hsm = hsm_objects.filter_id_by_label(key_name=self.private_key_label)
+        key_label_on_hsm = hsm_objects.filter_id_by_label(key_label=self.private_key_label)
         if key_label_on_hsm is not None:
             Exception("key label already exists for key label: {}".format(self.private_key_label))
 
