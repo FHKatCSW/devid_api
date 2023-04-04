@@ -4,30 +4,12 @@
 PKCS11_TOOL=/usr/bin/pkcs11-tool
 
 # Parse command line arguments
-while [[ $# -gt 0 ]]
-do
-    key="$1"
-
-    case $key in
-        --key_type)
-        key_type="$2"
-        shift
-        shift
-        ;;
-        --id)
-        id="$2"
-        shift
-        shift
-        ;;
-        --pin)
-        pin="$2"
-        shift
-        shift
-        ;;
-        *)
-        echo "Unknown option: $key"
-        exit 1
-        ;;
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --key_type=*) key_type="${1#*=}"; shift 1;;
+        --id=*) id="${1#*=}"; shift 1;;
+        --pin=*) pin="${1#*=}"; shift 1;;
+        *) echo "Unknown parameter: $1"; exit 1;;
     esac
 done
 
