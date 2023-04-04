@@ -100,7 +100,7 @@ class HsmObjects:
 
     def delete_hsm_object(self, type, key_id):
         command = [
-            ".bash/delete_keys_on_hsm.sh",
+            "./bash/delete_keys_on_hsm.sh",
             f'--key_type={type}',
             f'--id={key_id}',
             f'--pin={self.pin}',
