@@ -31,7 +31,7 @@ class IDManager:
             return max(self.ids, key=lambda x: x['timestamp'])['id']
 
 if __name__ == "__main__":
-    id = IDManager(file_path="home/admin/id_manager/ids.json")
+    id = IDManager(file_path="home/admin/certs/ids.json")
     id.add_id(id_value="10542d997f0000001000000000000000")
     most_recent = id.get_latest_id()
     print(most_recent)
