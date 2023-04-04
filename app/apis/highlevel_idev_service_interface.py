@@ -68,13 +68,18 @@ class HighLvlIDevProvision(Resource):
                 slot_num=0,
                 pin='1234'
             )
-            hsm_objects.filter_id_by_label("")
+            hsm_idev_id = hsm_objects.get_actual_idev_id()
 
             export_cert = CertHandler(
                 pin="1234",
-                cert_id=5,
+                cert_id=hsm_idev_id,
             )
             export_cert.export_certificate(output_directory="/home/admin/")
-
-        return {"success": True,
-                "message": "NotImplemented"}
+            actual_idev = export_cert.parse_certificate()
+            return {"success": True,
+                    "message": "IDevId with the HSM ID {}".format(hsm_idev_id),
+                    "data": actual_idev}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err),
+                    "data": None}
