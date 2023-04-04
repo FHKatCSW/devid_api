@@ -98,15 +98,18 @@ class HsmObjects:
     def delete_key_by_label(self, key_label):
         self.filter_id_by_label(key_label)
 
-    def delete_hsm_object(self, priv_pub_key, key_id):
+    def delete_hsm_object(self, type, key_id):
         command = [
             "/usr/bin/pkcs11-tool",
             f'--delete-object',
-            f'--type {priv_pub_key}',
+            f'--type {type}',
             f'--id {key_id}',
-            f'--login',
-            f'--pin {self.pin}',
         ]
+
+        if type == "privkey" or type == "pubkey":
+            command += [f'--login']
+            command += [f'--pin {self.pin}']
+
         print("Executing command:", " ".join(command))
         subprocess.call(command)
 
