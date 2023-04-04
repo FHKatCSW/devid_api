@@ -162,7 +162,7 @@ def bootstrap_idev():
     idevid.create_key()
     idevid.generate_csr()
     idevid.request_cert(base_url='campuspki.germanywestcentral.cloudapp.azure.com',
-                           p12_file='/home/admin/fhk_hmi_setup_v3.p12',
+                           p12_file='/home/admin/certs/fhk_hmi_setup_v3.p12',
                            p12_pass='foo123',
                            certificate_profile_name='DeviceIdentity-Raspberry',
                            end_entity_profile_name='KF-CS-EE-DeviceIdentity-Raspberry',
@@ -176,7 +176,7 @@ def bootstrap_ldev():
     ldevid.create_key()
     ldevid.generate_csr()
     ldevid.request_cert(base_url='campuspki.germanywestcentral.cloudapp.azure.com',
-                           p12_file='/home/admin/fhk_hmi_setup_v3.p12',
+                           p12_file='/home/admin/certs/fhk_hmi_setup_v3.p12',
                            p12_pass='foo123',
                            certificate_profile_name='DeviceIdentity-Raspberry',
                            end_entity_profile_name='KF-CS-EE-DeviceIdentity-Raspberry',
