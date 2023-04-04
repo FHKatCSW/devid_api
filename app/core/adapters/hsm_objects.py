@@ -45,8 +45,7 @@ class HsmObjects:
             elif line.startswith("Access:"):
                 self.parsed_objects[current_key_type][current_key_label]["Access"] = line.split(":")[1].strip()
             elif line.startswith("subject:"):
-                self.parsed_objects[current_key_type][current_key_label]["subject"] = line.split(":")[1].strip()
-                print(line.split(":"))
+                self.parsed_objects[current_key_type][current_key_label]["subject"] = "{}: {}".format(line.split(":")[1].strip(), line.split(":")[2].strip())
 
 
     def to_dict(self):
