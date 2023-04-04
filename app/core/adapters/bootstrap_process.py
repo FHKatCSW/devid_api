@@ -137,11 +137,15 @@ class BootstrapDevId:
         self.logger.info("？ Validate certificate")
 
         self.logger.info("-Export IDev Certificate to tmp storage")
-        cert_path = self.export_certificate()
+        hsm_objects = HsmObjects(
+            slot_num=self.slot,
+            pin=self.pin
+        )
+        hsm_idev_id = hsm_objects.get_actual_idev_id()
 
-        public_web_validator = CertValidator()
+        public_web_validator = CertValidator(id=hsm_idev_id)
         public_web_validator._load_ca_certs_via_public_web(ca_chain_url)
-        self.valid_idev = public_web_validator.validate(cert_path)
+        self.valid_idev = public_web_validator.validate()
 
     def validate_key_label_exists(self):
         hsm_objects = HsmObjects(
@@ -172,7 +176,7 @@ def bootstrap_idev():
 def bootstrap_ldev():
     ldevid = BootstrapDevId(pin="1234", slot=0)
     ldevid.setup_ldev_id()
-    ldevid.validate_idev_certifificate()
+    ldevid.validate_idev_certifificate(ca_chain_url="https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem")
     ldevid.create_key()
     ldevid.generate_csr()
     ldevid.request_cert(base_url='campuspki.germanywestcentral.cloudapp.azure.com',
