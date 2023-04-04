@@ -44,7 +44,6 @@ class CertHandler:
 
         command = [
             "./bash/export_certificate.sh",
-            f'--module={self.pkcs11_module}',
             f'--id={self.cert_id}',
             f'--output_file={self.target_path}',
             f'--pin={self.pin}',
