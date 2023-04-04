@@ -4,12 +4,10 @@ import subprocess
 
 class HsmObjects:
     def __init__(self, slot_num, pin):
-        self.private_keys = {}
-        self.public_keys = {}
-        self.certificates = {}
         self.slot_num = slot_num
         self.pin = pin
         objects = self.list_objects_on_hsm()
+        self.parsed_objects = None
         self.parse_input_str(objects)
 
     def list_objects_on_hsm(self):
@@ -19,69 +17,39 @@ class HsmObjects:
         return result_str
 
     def parse_input_str(self, input_str):
-        pattern = r'^\s*([^:]+):\s*(.*?)\s*$'
 
-        current_obj_type = None
-        current_obj_label = None
-        current_obj_id = None
-        current_obj_usage = None
-        current_obj_access = None
-        current_obj_subject = None
+        self.parsed_objects = {
+            "private_keys": {},
+            "public_keys": {},
+            "certificates": {}
+        }
 
-        for line in input_str.split('\n'):
-            match = re.match(r"(Certificate|Public|Private)\s(Key|Object)", line)
-            if match:
-                current_obj_type = match.group(1).lower()
-                current_obj_label = None
-                continue
+        current_key_type = None
+        current_key_label = None
 
-            match = re.match(pattern, line)
-            if match:
-                key = match.group(1)
-                value = match.group(2)
-                if key == 'label':
-                    current_obj_label = value
-                elif key == 'ID':
-                    current_obj_id = value
-                elif key == 'Usage':
-                    current_obj_usage = value
-                elif key == 'Access':
-                    current_obj_access = value
-                elif key == 'subject':
-                    current_obj_subject = value
+        for line in input_str.split("\n"):
+            line = line.strip()
+            if line.startswith("Private Key Object"):
+                current_key_type = "private_keys"
+            elif line.startswith("Public Key Object"):
+                current_key_type = "public_keys"
+            elif line.startswith("Certificate Object"):
+                current_key_type = "certificates"
+            elif line.startswith("label:"):
+                current_key_label = line.split(":")[1].strip()
+                self.parsed_objects[current_key_type][current_key_label] = {}
+            elif line.startswith("ID:"):
+                self.parsed_objects[current_key_type][current_key_label]["ID"] = line.split(":")[1].strip()
+            elif line.startswith("Usage:"):
+                self.parsed_objects[current_key_type][current_key_label]["Usage"] = line.split(":")[1].strip()
+            elif line.startswith("Access:"):
+                self.parsed_objects[current_key_type][current_key_label]["Access"] = line.split(":")[1].strip()
+            elif line.startswith("subject:"):
+                self.parsed_objects[current_key_type][current_key_label]["subject"] = line.split(":")[1].strip()
 
-                if current_obj_label:
-
-                    obj_data = {}
-
-                    if current_obj_id:
-                        obj_data['ID'] = current_obj_id
-                    if current_obj_usage:
-                        obj_data['Usage'] = current_obj_usage
-                    if current_obj_access:
-                        obj_data['Access'] = current_obj_access
-                    if current_obj_subject:
-                        obj_data['Subject'] = current_obj_subject
-
-                    if current_obj_type == 'private':
-                        self.private_keys[current_obj_label] = obj_data
-                    elif current_obj_type == 'public':
-                        self.public_keys[current_obj_label] = obj_data
-                    elif current_obj_type == 'certificate':
-                        self.certificates[current_obj_label] = obj_data
-
-                    current_obj_label = None
-                    current_obj_id = None
-                    current_obj_usage = None
-                    current_obj_access = None
-                    current_obj_subject = None
 
     def to_dict(self):
-        return {
-            'private_keys': self.private_keys,
-            'public_keys': self.public_keys,
-            'certificates': self.certificates
-        }
+        return self.parsed_objects
 
     def to_json(self):
         return json.dumps(self.to_dict(), indent=4)
