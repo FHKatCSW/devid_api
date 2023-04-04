@@ -15,10 +15,9 @@ PKCS11_MODULE=/usr/lib/opensc-pkcs11.so
 
 # Use pkcs11-tool to export certificate from HSM
 $PKCS11_TOOL --module "$PKCS11_MODULE" \
-            --export-certificate \
+            --read-object \
             --type cert \
             --id "$CERT_ID" \
-            --pin "$PIN" \
             --output-file "$CERT_FILE"
 
 # Check if the certificate was successfully exported

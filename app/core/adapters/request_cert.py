@@ -4,6 +4,9 @@ from requests_pkcs12 import Pkcs12Adapter
 import OpenSSL.crypto
 import logger
 import base64
+from cryptography import x509
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import serialization
 
 
 class CertRequest:
@@ -66,7 +69,7 @@ class CertRequest:
         except (json.JSONDecodeError, OSError, KeyError) as e:
             self.logger.error(f"Error requesting certificate: {str(e)}")
 
-    def save_cert_to_pem(self, certificate_string, cert_path):
+    def save_cert_to_pem_legacy(self, certificate_string, cert_path):
         # Insert a newline character after every 64 characters
         formatted_certificate_text = '\n'.join(
             [certificate_string[i:i + 64] for i in range(0, len(certificate_string), 64)])
@@ -75,6 +78,17 @@ class CertRequest:
             certificate_file.write("-----BEGIN CERTIFICATE-----\n")
             certificate_file.write(formatted_certificate_text + "\n")
             certificate_file.write("-----END CERTIFICATE-----\n")
+
+    def save_cert_to_pem(self, certificate_string, cert_path):
+        # Decode the received text string from base64 and convert it to bytes
+        certificate_bytes = base64.b64decode(certificate_string)
+
+        # Parse the certificate bytes as an X.509 certificate
+        certificate = x509.load_der_x509_certificate(certificate_bytes, default_backend())
+
+        # Write the certificate to a file in PEM format
+        with open(cert_path, 'wb') as f:
+            f.write(certificate.public_bytes(encoding=serialization.Encoding.PEM))
 
     def get_sha_fingerprint(self, cert_path):
         # Load the certificate from the PEM file
@@ -85,13 +99,6 @@ class CertRequest:
         # Calculate the SHA-256 fingerprint
         fingerprint = cert.digest("sha256").decode("ascii")
         self.logger.info("Certificate fingerprint: {}".format(fingerprint))
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     cert_req = CertRequest(
