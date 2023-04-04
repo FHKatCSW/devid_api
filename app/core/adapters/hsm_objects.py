@@ -2,6 +2,9 @@ import re
 import json
 import subprocess
 
+from id_manager import IDManager
+
+
 class HsmObjects:
     def __init__(self, slot_num, pin):
         self.slot_num = slot_num
@@ -70,10 +73,25 @@ class HsmObjects:
                 return value['ID']
         return None
 
+    def get_most_recent_ldev_id(self):
+        id = IDManager(file_path="/home/admin/certs/ids.json")
+        most_recent = id.get_latest_id()
+        if self.validate_id_exists(most_recent):
+            return most_recent
+        return None
+
+    def validate_id_exists(self, id):
+        keys = self.to_dict()
+        for key_type in keys:
+            for key_name in keys[key_type]:
+                key_data = keys[key_type][key_name]
+                if key_data['ID'] == id:
+                    return True
+        return False
+
     def delete_all_objects(self):
         keys = self.to_dict()
         self.delete_objects(keys)
-
 
     def delete_ldev_objects(self):
         self.delete_objects_by_type("ldev")
@@ -112,6 +130,9 @@ class HsmObjects:
 
 
 
+
+
+
 def main():
     print("--- Print Objects ---")
     hsm_objects = HsmObjects(
@@ -123,6 +144,14 @@ def main():
     #print(hsm_objects.to_dict())
     print("--- Get key ID ---")
     print("ID: {}".format(hsm_objects.filter_id_by_label(key_label="my_rsa_pvt_86599")))
+
+def most_recent_ldev():
+    hsm_objects = HsmObjects(
+        slot_num=0,
+        pin='1234'
+    )
+    most_recent = hsm_objects.get_most_recent_ldev_id()
+    print(most_recent)
 
 def delete_idev():
     hsm_objects = HsmObjects(
@@ -139,4 +168,4 @@ def get_actual_idev():
     print(hsm_objects.get_actual_idev_id())
 
 if __name__ == "__main__":
-    main()
+    most_recent_ldev()
