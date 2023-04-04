@@ -63,5 +63,25 @@ class HighLvlLdevProvision(Resource):
     @api.doc("get")
     def get(self):
         """Only for demonstration purpose: Provide the content of the most recent LDevID certificate"""
-        return {"success": True,
-                "message": "NotImplemented"}
+        try:
+            slot_num=0
+            pin="1234"
+            hsm_objects = HsmObjects(
+                slot_num=slot_num,
+                pin=pin
+            )
+            hsm_ldev_id = hsm_objects.get_most_recent_ldev_id()
+            export_cert = CertHandler(
+                pin=pin,
+                cert_id=hsm_ldev_id,
+            )
+            export_cert.export_certificate(output_directory="/home/admin/")
+            actual_ldev = export_cert.parse_certificate()
+            return {"success": True,
+                    "message": "LDevId with the HSM ID {}".format(hsm_ldev_id),
+                    "data": actual_ldev}
+
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err),
+                    "data": None}
