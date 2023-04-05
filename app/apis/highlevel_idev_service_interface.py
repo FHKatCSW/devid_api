@@ -2,6 +2,8 @@ from flask_restx import Namespace, Resource
 from app.apis.adapters.hsm_objects import HsmObjects
 from app.apis.adapters.bootstrap_process import BootstrapDevId
 from app.apis.adapters.cert_handler import CertHandler
+from flask import jsonify
+
 
 
 api = Namespace("Highlevel-IDevID", description="Highlevel REST API Calls for the IDevID module")
@@ -88,7 +90,8 @@ class HighLvlIDevActual(Resource):
             export_cert.export_certificate(output_directory="/home/admin/")
             actual_idev = export_cert.parse_certificate()
             return {"success": True,
-                    "message": "IDevId with the HSM ID {}".format(hsm_idev_id)}
+                    "message": "IDevId with the HSM ID {}".format(hsm_idev_id),
+                    "data": jsonify(actual_idev)}
         except Exception as err:
             return {"success": False,
                     "message": str(err)}
