@@ -114,6 +114,8 @@ class CertHandler:
 
         self.logger.info(self.parsed_cert)
         self.logger.info(type(self.parsed_cert))
+        for key, value in self.parsed_cert.items():
+            self.logger.info(f"{key}: {type(value)}")
         return self.parsed_cert
 
 
