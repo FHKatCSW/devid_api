@@ -102,6 +102,10 @@ class CertHandler:
         org_name_attr = cert.subject.get_attributes_for_oid(x509.NameOID.ORGANIZATION_NAME)
         org_unit_name_attr = cert.subject.get_attributes_for_oid(x509.NameOID.ORGANIZATIONAL_UNIT_NAME)
         serial_num_attr = cert.subject.get_attributes_for_oid(x509.NameOID.SERIAL_NUMBER)
+        country_attr = cert.subject.get_attributes_for_oid(x509.NameOID.COUNTRY_NAME)
+        state_attr = cert.subject.get_attributes_for_oid(x509.NameOID.STATE_OR_PROVINCE_NAME)
+        pseudonym_attr = cert.subject.get_attributes_for_oid(x509.NameOID.PSEUDONYM)
+
 
 
         # Extract the CN, O, and OU fields from the subject
@@ -111,6 +115,10 @@ class CertHandler:
         self.parsed_cert["o"] = org_name_attr[0].value if org_name_attr else "None"
         self.parsed_cert["ou"] = org_unit_name_attr[0].value if org_unit_name_attr else "None"
         self.parsed_cert["serial_number"] = serial_num_attr[0].value if serial_num_attr else "None"
+        self.parsed_cert["c"] = country_attr[0].value if country_attr else "None"
+        self.parsed_cert["st"] = state_attr[0].value if state_attr else "None"
+        self.parsed_cert["pseudonym"] = pseudonym_attr[0].value if pseudonym_attr else "None"
+
 
         self.logger.info(self.parsed_cert)
         return self.parsed_cert
