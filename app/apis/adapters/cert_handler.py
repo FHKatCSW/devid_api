@@ -23,7 +23,7 @@ class CertHandler:
         self.logger.info("--cert id: {}; cert label: {}".format(self.cert_id, cert_label))
 
         command = [
-            "./bash/insert_certificate.sh",
+            "/home/admin/devid_api/app/apis/adapters/bash/insert_certificate.sh",
             f'--certificate_path={certificate_path}',
             f'--hsm_slot={slot}',
             f'--hsm_pin={self.pin}',
@@ -45,7 +45,7 @@ class CertHandler:
         self.logger.info("--output file: {}".format(self.target_path_der))
 
         command = [
-            "./bash/export_certificate.sh",
+            "/home/admin/devid_api/app/apis/adapters/bash/export_certificate.sh",
             f'--id={self.cert_id}',
             f'--output_file={self.target_path_der}',
             f'--pin={self.pin}',

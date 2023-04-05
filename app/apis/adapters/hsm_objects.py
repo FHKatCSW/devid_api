@@ -15,7 +15,7 @@ class HsmObjects:
 
     def list_objects_on_hsm(self):
         # Run the bash script and capture the output
-        result = subprocess.check_output(["./bash/list_objects.sh",  str(self.slot_num), self.pin])
+        result = subprocess.check_output(["/home/admin/devid_api/app/apis/adapters/bash/list_objects.sh",  str(self.slot_num), self.pin])
         result_str = result.decode('utf-8')  # decode bytes object to string
         return result_str
 
@@ -118,7 +118,7 @@ class HsmObjects:
 
     def delete_hsm_object(self, type, key_id):
         command = [
-            "./bash/delete_keys_on_hsm.sh",
+            "/home/admin/devid_api/app/apis/adapters/bash/delete_keys_on_hsm.sh",
             f'--key_type={type}',
             f'--id={key_id}',
             f'--pin={self.pin}',

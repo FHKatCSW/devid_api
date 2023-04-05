@@ -28,7 +28,7 @@ class GenerateCsr:
         self.logger.info("--File name: {}".format(self.output_file))
         # Build command to call the bash script with named arguments
         command = [
-            "./bash/generate_csr.sh",
+            "/home/admin/devid_api/app/apis/adapters/bash/generate_csr.sh",
             f'--output-file={self.output_file}',
             f'--hsm-pin={self.pin}',
             f'--cn={cn}',
