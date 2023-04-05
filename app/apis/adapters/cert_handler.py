@@ -108,9 +108,9 @@ class CertHandler:
         self.parsed_cert["cn"] = subject.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
 
 
-        self.parsed_cert["o"] = org_name_attr[0].value if org_name_attr else None
-        self.parsed_cert["ou"] = org_unit_name_attr[0].value if org_unit_name_attr else None
-        self.parsed_cert["serial_number"] = serial_num_attr[0].value if serial_num_attr else None
+        self.parsed_cert["o"] = org_name_attr[0].value if org_name_attr else "None"
+        self.parsed_cert["ou"] = org_unit_name_attr[0].value if org_unit_name_attr else "None"
+        self.parsed_cert["serial_number"] = serial_num_attr[0].value if serial_num_attr else "None"
 
         self.logger.info(self.parsed_cert)
         self.logger.info(type(self.parsed_cert))
