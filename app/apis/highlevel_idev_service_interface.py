@@ -91,7 +91,13 @@ class HighLvlIDevActual(Resource):
             actual_idev = export_cert.parse_certificate()
             return {"success": True,
                     "message": "IDevId with the HSM ID {}".format(hsm_idev_id),
-                    "data": actual_idev
+                    "issuer": actual_idev["issuer"],
+                    "validFrom": actual_idev["validFrom"],
+                    "validTill": actual_idev["validTill"],
+                    "serial_number": actual_idev["serial_number"],
+                    "cn": actual_idev["cn"],
+                    "o": actual_idev["o"],
+                    "ou": actual_idev["ou"],
                     }
         except Exception as err:
             return {"success": False,

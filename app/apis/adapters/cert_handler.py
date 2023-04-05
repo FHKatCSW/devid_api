@@ -93,7 +93,7 @@ class CertHandler:
         self.parsed_cert["validTill"] = validTill_formatted
 
         # Extract the serial number
-        self.parsed_cert["serial_number"] = cert.serial_number
+        self.parsed_cert["serial_number_ca"] = cert.serial_number
 
 
         # Extract the subject
