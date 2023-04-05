@@ -88,9 +88,7 @@ class HighLvlIDevActual(Resource):
             export_cert.export_certificate(output_directory="/home/admin/")
             actual_idev = export_cert.parse_certificate()
             return {"success": True,
-                    "message": "IDevId with the HSM ID {}".format(hsm_idev_id),
-                    "data": actual_idev}
+                    "message": "IDevId with the HSM ID {}".format(hsm_idev_id)}
         except Exception as err:
             return {"success": False,
-                    "message": str(err),
-                    "data": None}
+                    "message": str(err)}
