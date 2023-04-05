@@ -1,6 +1,7 @@
 import re
 import json
 import subprocess
+import os
 
 from app.apis.adapters.id_manager import IDManager
 
@@ -168,4 +169,5 @@ def get_actual_idev():
     print(hsm_objects.get_actual_idev_id())
 
 if __name__ == "__main__":
+    os.chdir('/home/admin/devid_api/')
     most_recent_ldev()
