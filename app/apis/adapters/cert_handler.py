@@ -64,6 +64,7 @@ class CertHandler:
             return self.target_path_der
 
     def load_cert(self):
+        self.logger.info("-load certificate")
         # Load the PEM certificate
         with open(self.target_path_der, 'rb') as der_data:
             der_data = der_data.read()
@@ -74,7 +75,8 @@ class CertHandler:
 
 
     def parse_certificate(self):
-        print(self.cert_content)
+        self.logger.info("-load certificate")
+
         # Parse the certificate
         cert = x509.load_pem_x509_certificate(self.cert_content, default_backend())
 
@@ -106,7 +108,7 @@ class CertHandler:
         self.parsed_cert["ou"] = org_unit_name_attr[0].value if org_unit_name_attr else None
         self.parsed_cert["serial_number"] = serial_num_attr[0].value if serial_num_attr else None
 
-
+        print(self.parsed_cert)
         return self.parsed_cert
 
 
