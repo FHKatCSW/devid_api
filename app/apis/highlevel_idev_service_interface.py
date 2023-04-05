@@ -89,7 +89,7 @@ class HighLvlIDevActual(Resource):
             )
             export_cert.export_certificate(output_directory="/home/admin/")
             actual_idev = export_cert.parse_certificate()
-            return {"success": True,
+            data = {"success": True,
                     "message": "IDevId with the HSM ID {}".format(hsm_idev_id),
                     "issuer": actual_idev["issuer"],
                     "validFrom": actual_idev["validFrom"],
@@ -99,6 +99,7 @@ class HighLvlIDevActual(Resource):
                     "o": actual_idev["o"],
                     "ou": actual_idev["ou"],
                     }
+            return jsonify(data)
         except Exception as err:
             return {"success": False,
                     "message": str(err)}
