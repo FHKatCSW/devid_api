@@ -7,7 +7,7 @@ def main():
         slot_num=0,
         pin='1234'
     )
-    print(hsm_objects.to_dict())
+    print(hsm_objects.to_json())
 
 if __name__ == "__main__":
     main()
