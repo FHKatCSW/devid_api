@@ -68,19 +68,25 @@ class HsmObjects:
                 return keys_str[key_type][key_label]["ID"]
 
     def get_actual_idev_id(self):
-
+        self.logger.info("-Search actual IDevID")
         data = self.to_dict()
 
         for key, value in data['private_keys'].items():
             if key.startswith('idev'):
+                self.logger.info("--IDevID found with ID: {}".format(value['ID']))
                 return value['ID']
+        self.logger.info("--No IDevID found")
         return None
 
     def get_most_recent_ldev_id(self):
+        self.logger.info("-Search most recent LDevID")
+
         id = IDManager(file_path="/home/admin/certs/ldev_ids.json")
         most_recent = id.get_latest_id()
         if self.validate_id_exists(most_recent):
+            self.logger.info("--LDevID found with ID: {}".format(most_recent))
             return most_recent
+        self.logger.info("--No LDevID found")
         return None
 
     def validate_id_exists(self, id):
