@@ -14,6 +14,7 @@ while [ $# -gt 0 ]; do
         --ou=*) ou="${1#*=}"; shift 1;;
         --c=*) c="${1#*=}"; shift 1;;
         --serial-number=*) serial_number="${1#*=}"; shift 1;;
+        --pseudonym=*) pseudonym="${1#*=}"; shift 1;;
         *) echo "Unknown parameter: $1"; exit 1;;
     esac
 done
@@ -25,6 +26,8 @@ if [ ! -z "$o" ]; then subj="$subj/O=$o"; fi
 if [ ! -z "$ou" ]; then subj="$subj/OU=$ou"; fi
 if [ ! -z "$c" ]; then subj="$subj/C=$c"; fi
 if [ ! -z "$serial_number" ]; then subj="$subj/serialNumber=$serial_number"; fi
+if [ ! -z "$pseudonym" ]; then subj="$subj/pseudonym=$pseudonym"; fi
+
 
 # Generate CSR using openssl command
 openssl req -engine pkcs11 -keyform engine -subj "$subj" -key "$key_id" -passin pass:"$hsm_pin" -new -sha256 -out $output_file --verbose
