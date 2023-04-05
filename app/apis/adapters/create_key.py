@@ -1,6 +1,6 @@
 from pyhsm.hsmclient import HsmClient
 import random
-import logger
+from app.apis.adapters import logger
 
 
 class HsmKey:

@@ -1,5 +1,5 @@
 import subprocess
-import logger
+from app.apis.adapters import logger
 import os
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend

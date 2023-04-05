@@ -2,7 +2,7 @@ import json
 import requests
 from requests_pkcs12 import Pkcs12Adapter
 import OpenSSL.crypto
-import logger
+from app.apis.adapters import logger
 import base64
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend

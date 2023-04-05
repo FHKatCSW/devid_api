@@ -1,7 +1,7 @@
 import subprocess
 import random
 from app.apis.adapters.hsm_objects import HsmObjects
-import logger
+from app.apis.adapters import logger
 
 
 class GenerateCsr:

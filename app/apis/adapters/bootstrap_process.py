@@ -6,7 +6,7 @@ from app.apis.adapters.cert_handler import CertHandler
 from app.apis.adapters.validate_chain import CertValidator
 from app.apis.adapters.hsm_objects import HsmObjects
 import os
-import logger
+from app.apis.adapters import logger
 
 class BootstrapDevId:
     def __init__(self, pin, slot):

@@ -1,6 +1,6 @@
 import requests
 import OpenSSL.crypto as crypto
-import logger
+from app.apis.adapters import logger
 from app.apis.adapters.cert_handler import CertHandler
 
 
