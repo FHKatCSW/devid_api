@@ -1,6 +1,6 @@
 import subprocess
 import random
-from hsm_objects import HsmObjects
+from app.apis.adapters.hsm_objects import HsmObjects
 import logger
 
 

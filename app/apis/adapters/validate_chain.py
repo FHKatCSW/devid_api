@@ -1,7 +1,7 @@
 import requests
 import OpenSSL.crypto as crypto
 import logger
-from cert_handler import CertHandler
+from app.apis.adapters.cert_handler import CertHandler
 
 
 class CertValidator:

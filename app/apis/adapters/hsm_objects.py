@@ -2,7 +2,7 @@ import re
 import json
 import subprocess
 
-from id_manager import IDManager
+from app.apis.adapters.id_manager import IDManager
 
 
 class HsmObjects:
