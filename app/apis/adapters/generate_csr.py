@@ -35,6 +35,7 @@ class GenerateCsr:
         ]
 
         if self.key_label:
+            self.logger.info("--Find Id for given label: {}".format(self.key_label))
             self.get_key_id_by_label()
 
         command += [f'--key-id={self.key_id}']
@@ -62,7 +63,7 @@ class GenerateCsr:
         #         f.write('\n'.join(san_config))
         #     command += ['-reqexts', 'SAN', '-config', san_config_file]
 
-        print(command)
+        self.logger.info(command)
         # Call the bash script with the command
         subprocess.call(command)
 
