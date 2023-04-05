@@ -34,13 +34,14 @@ class CertHandler:
         subprocess.call(command)
 
     def export_certificate(self, output_directory, pem = False):
+        self.logger.info("-export certificate")
         target_dir = os.path.join(output_directory, "temp_certs")
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
-            self.logger.info(f"Created directory at {target_dir}")
+            self.logger.info(f"--Created directory at {target_dir}")
         self.target_path_der = os.path.join(target_dir, "{}.der".format(self.cert_id))
 
-        self.logger.info("-export certificate")
+
         self.logger.info("--cert id: {}".format(self.cert_id))
         self.logger.info("--output file: {}".format(self.target_path_der))
 
@@ -75,7 +76,7 @@ class CertHandler:
 
 
     def parse_certificate(self):
-        self.logger.info("-load certificate")
+        self.logger.info("-parse certificate")
 
         # Parse the certificate
         cert = x509.load_pem_x509_certificate(self.cert_content, default_backend())
@@ -93,6 +94,8 @@ class CertHandler:
 
         # Extract the serial number
         self.parsed_cert["serial_number"] = cert.serial_number
+
+        self.logger.info("--general info done")
 
         # Extract the subject
         subject = cert.subject
