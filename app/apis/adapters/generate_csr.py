@@ -23,7 +23,7 @@ class GenerateCsr:
         self.key_id = hsm_objects.filter_id_by_label(key_label=self.key_label)
         self.logger.info("--Key ID: {}".format(self.key_id))
 
-    def generate_csr(self, cn, o=None, ou=None, c=None, serial_number=None):
+    def generate_csr(self, cn, o=None, ou=None, c=None, serial_number=None, pseudonym=None):
         self.logger.info("-Generate CSR ")
         self.logger.info("--File name: {}".format(self.output_file))
         # Build command to call the bash script with named arguments
@@ -47,6 +47,8 @@ class GenerateCsr:
             command += [f'--c={c}']
         if serial_number:
             command += [f'--serial-number={serial_number}']
+        if pseudonym:
+            command += [f'--pseudonym={pseudonym}']
 
         # Add subject alternative names to the CSR
         # if dns_names or ip_addresses:

@@ -76,7 +76,7 @@ class BootstrapDevId:
         log_id.add_id(self.hsm_id)
         self.key_generated = True
 
-    def generate_csr(self, key_label=None, cn=None, o=None, ou=None, c=None, serial_number=None):
+    def generate_csr(self, key_label=None, cn=None, o=None, ou=None, c=None, serial_number=None, pseudonym=None):
         self.logger.info("🖋️ Generate CSR")
 
         if self.key_generated:
@@ -101,7 +101,8 @@ class BootstrapDevId:
                                   serial_number=self.serial_number,
                                   o=o,
                                   ou=ou,
-                                  c=c)
+                                  c=c,
+                                  pseudonym=pseudonym)
 
     def request_cert(self, base_url, p12_file, p12_pass, certificate_profile_name, end_entity_profile_name, certificate_authority_name):
         self.logger.info("📄 Request certificate")
