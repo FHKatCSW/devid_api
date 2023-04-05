@@ -75,7 +75,7 @@ class HighLvlLdevProvision(Resource):
                     "message": str(err)}
 
 @api.route('/actual', endpoint='highlvl-ldev-get')
-class HighLvlLdevProvision(Resource):
+class HighLvlLdevActual(Resource):
 
     @api.doc("get")
     def get(self):
