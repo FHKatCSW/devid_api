@@ -2,12 +2,13 @@ import re
 import json
 import subprocess
 import os
-
+from app.apis.adapters import logger
 from app.apis.adapters.id_manager import IDManager
 
 
 class HsmObjects:
     def __init__(self, slot_num, pin):
+        self.logger = logger.get_logger("HsmObjects")
         self.slot_num = slot_num
         self.pin = pin
         objects = self.list_objects_on_hsm()
@@ -15,6 +16,7 @@ class HsmObjects:
         self.parse_input_str(objects)
 
     def list_objects_on_hsm(self):
+        self.logger.info("-List objects on HSM")
         # Run the bash script and capture the output
         result = subprocess.check_output(["/home/admin/devid_api/app/apis/adapters/bash/list_objects.sh",  str(self.slot_num), self.pin])
         result_str = result.decode('utf-8')  # decode bytes object to string
@@ -75,7 +77,7 @@ class HsmObjects:
         return None
 
     def get_most_recent_ldev_id(self):
-        id = IDManager(file_path="/home/admin/certs/ids.json")
+        id = IDManager(file_path="/home/admin/certs/ldev_ids.json")
         most_recent = id.get_latest_id()
         if self.validate_id_exists(most_recent):
             return most_recent

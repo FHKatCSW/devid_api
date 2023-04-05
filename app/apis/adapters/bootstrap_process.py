@@ -5,6 +5,7 @@ from app.apis.adapters.request_cert import CertRequest
 from app.apis.adapters.cert_handler import CertHandler
 from app.apis.adapters.validate_chain import CertValidator
 from app.apis.adapters.hsm_objects import HsmObjects
+from app.apis.adapters.id_manager import IDManager
 import os
 from app.apis.adapters import logger
 
@@ -71,6 +72,8 @@ class BootstrapDevId:
             pin=self.pin
         )
         self.hsm_id = hsm_objects.filter_id_by_label(key_label=self.private_key_label)
+        log_id = IDManager("/home/admin/certs/ldev_ids.json")
+        log_id.add_id(self.hsm_id)
         self.key_generated = True
 
     def generate_csr(self, key_label=None, cn=None, o=None, ou=None, c=None, serial_number=None):
