@@ -91,15 +91,9 @@ class HighLvlIDevActual(Resource):
             actual_idev = export_cert.parse_certificate()
             data = {"success": True,
                     "message": "IDevId with the HSM ID {}".format(hsm_idev_id),
-                    "issuer": actual_idev["issuer"],
-                    "validFrom": actual_idev["validFrom"],
-                    "validTill": actual_idev["validTill"],
-                    "serial_number": actual_idev["serial_number"],
-                    "cn": actual_idev["cn"],
-                    "o": actual_idev["o"],
-                    "ou": actual_idev["ou"],
-                    }
+                    "data": actual_idev}
             return jsonify(data)
         except Exception as err:
             return {"success": False,
-                    "message": str(err)}
+                    "message": str(err),
+                    "data": None}
