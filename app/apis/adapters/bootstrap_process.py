@@ -146,6 +146,7 @@ class BootstrapDevId:
         public_web_validator = CertValidator(id=hsm_idev_id)
         public_web_validator._load_ca_certs_via_public_web(ca_chain_url)
         self.valid_idev = public_web_validator.validate()
+        return self.valid_idev
 
     def validate_key_label_exists(self):
         hsm_objects = HsmObjects(

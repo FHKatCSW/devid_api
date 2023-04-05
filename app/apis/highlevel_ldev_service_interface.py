@@ -1,7 +1,8 @@
-from flask_restx import Namespace, Resource, fields
-from app.core.adapters.hsm_objects import HsmObjects
-from app.core.adapters.bootstrap_process import BootstrapDevId
-from app.core.adapters.cert_handler import CertHandler
+from flask_restx import Namespace, Resource
+from adapters.hsm_objects import HsmObjects
+from adapters.bootstrap_process import BootstrapDevId
+from adapters.cert_handler import CertHandler
+from adapters.validate_chain import CertValidator
 
 api = Namespace("Highlevel-LDevID", description="Highlevel REST API Calls for the LDevID module")
 
@@ -27,8 +28,24 @@ class HighLvlLdevValidate(Resource):
     @api.doc("post")
     def post(self):
         """Only for demonstration purpose: Delete the actual LDev cert"""
-        return {"success": True,
-                "message": "NotImplemented"}
+        try:
+            slot_num=0
+            pin="1234"
+            ca_chain_url = "https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem"
+            hsm_objects = HsmObjects(
+                slot_num=slot_num,
+                pin=pin)
+            hsm_ldev_id = hsm_objects.get_most_recent_ldev_id()
+            public_web_validator = CertValidator(hsm_ldev_id)
+            public_web_validator._load_ca_certs_via_public_web(ca_chain_url)
+            valid = public_web_validator.validate()
+            return {"success": True,
+                    "message": "Validation checked",
+                    "valid": valid}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err),
+                    "valid": None}
 
 @api.route('/provision', endpoint='highlvl-ldev-prov')
 class HighLvlLdevProvision(Resource):

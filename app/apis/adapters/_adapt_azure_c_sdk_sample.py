@@ -1,7 +1,7 @@
 import re
 
 # Open the input file and read its contents
-with open('./c/origin/iothub_ll_client_x509_sample.c', 'r') as f:
+with open('c/origin/iothub_ll_client_x509_sample.c', 'r') as f:
     content = f.read()
 
 with open("/home/admin/certs/my_cert_3443.pem", "r") as cert_file:

@@ -1,6 +1,3 @@
-import base64
-import ctypes
-import est.client
 import re
 
 class ESTClient:
@@ -9,7 +6,7 @@ class ESTClient:
         self.port = port
         self.alias = alias
         self.implicit_trust_anchor_cert_path = implicit_trust_anchor_cert_path
-        self.client = est.client.Client(host, port, alias, implicit_trust_anchor_cert_path)
+        self.client = app.apis.adapters.est.client.Client(host, port, alias, implicit_trust_anchor_cert_path)
 
     def set_basic_auth(self, username, password):
         self.client.set_basic_auth(username, password)

@@ -1,6 +1,5 @@
-import os
 from azure.iot.device import ProvisioningDeviceClient, X509
-from azure.iot.device import IoTHubDeviceClient, Message
+from azure.iot.device import IoTHubDeviceClient
 import logger
 import time
 

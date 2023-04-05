@@ -1,7 +1,7 @@
-from flask_restx import Namespace, Resource, fields
-from app.core.adapters.hsm_objects import HsmObjects
-from app.core.adapters.bootstrap_process import BootstrapDevId
-from app.core.adapters.cert_handler import CertHandler
+from flask_restx import Namespace, Resource
+from adapters.hsm_objects import HsmObjects
+from adapters.bootstrap_process import BootstrapDevId
+from adapters.cert_handler import CertHandler
 
 
 api = Namespace("Highlevel-IDevID", description="Highlevel REST API Calls for the IDevID module")
@@ -29,8 +29,17 @@ class HighLvlIDevValidate(Resource):
     @api.doc("post")
     def post(self):
         """Only for demonstration purpose: Delete the actual IDevID cert"""
-        return {"success": True,
-                "message": "NotImplemented"}
+        try:
+            idevid = BootstrapDevId(pin="1234", slot=0)
+            valid = idevid.validate_idev_certifificate(
+                ca_chain_url="https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem")
+            return {"success": True,
+                    "message": "Validation checked",
+                    "valid": valid}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err),
+                    "valid": None}
 
 @api.route('/provision', endpoint='highlvl-idev-prov')
 class HighLvlIDevProvision(Resource):
