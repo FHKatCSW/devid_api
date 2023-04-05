@@ -93,7 +93,7 @@ class HighLvlLdevActual(Resource):
                 cert_id=hsm_ldev_id,
             )
             export_cert.export_certificate(output_directory="/home/admin/")
-            actual_ldev = export_cert.parse_certificate()
+            actual_ldev = export_cert.parse_certificate(cert_string=True)
             return {"success": True,
                     "message": "LDevId with the HSM ID {}".format(hsm_ldev_id),
                     "data": actual_ldev}
