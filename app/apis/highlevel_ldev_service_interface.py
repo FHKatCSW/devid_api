@@ -1,8 +1,8 @@
 from flask_restx import Namespace, Resource
-from adapters.hsm_objects import HsmObjects
-from adapters.bootstrap_process import BootstrapDevId
-from adapters.cert_handler import CertHandler
-from adapters.validate_chain import CertValidator
+from app.apis.adapters.hsm_objects import HsmObjects
+from app.apis.adapters.bootstrap_process import BootstrapDevId
+from app.apis.adapters.cert_handler import CertHandler
+from app.apis.adapters.validate_chain import CertValidator
 
 api = Namespace("Highlevel-LDevID", description="Highlevel REST API Calls for the LDevID module")
 
