@@ -82,7 +82,7 @@ class CertHandler:
         cert = x509.load_pem_x509_certificate(self.cert_content, default_backend())
 
         # Extract the issuer
-        self.parsed_cert["issuer"] = cert.issuer
+        self.parsed_cert["issuer"] = str(cert.issuer)
 
         # Extract the validity period
         validFrom = cert.not_valid_before
