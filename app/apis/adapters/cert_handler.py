@@ -95,7 +95,6 @@ class CertHandler:
         # Extract the serial number
         self.parsed_cert["serial_number"] = cert.serial_number
 
-        self.logger.info("--general info done")
 
         # Extract the subject
         subject = cert.subject
@@ -104,6 +103,7 @@ class CertHandler:
         org_unit_name_attr = cert.subject.get_attributes_for_oid(x509.NameOID.ORGANIZATIONAL_UNIT_NAME)
         serial_num_attr = cert.subject.get_attributes_for_oid(x509.NameOID.SERIAL_NUMBER)
 
+        self.logger.info("--general info done")
 
         # Extract the CN, O, and OU fields from the subject
         self.parsed_cert["cn"] = subject.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
