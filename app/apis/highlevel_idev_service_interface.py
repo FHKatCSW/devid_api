@@ -53,7 +53,7 @@ class HighLvlIDevProvision(Resource):
             idevid = BootstrapDevId(pin="1234", slot=0)
             idevid.setup_idev_id()
             idevid.create_key()
-            idevid.generate_csr(o="Keyfactor", ou="IoT-Department", c="Germany", pseudonym="Wonderdevice 2.0")
+            idevid.generate_csr(o="Keyfactor", ou="IoT-Department", c="DE", pseudonym="Wonderdevice 2.0")
             idevid.request_cert(base_url='campuspki.germanywestcentral.cloudapp.azure.com',
                                 p12_file='/home/admin/fhk_hmi_setup_v3.p12',
                                 p12_pass='foo123',
