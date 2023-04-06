@@ -75,13 +75,10 @@ class CertHandler:
         self.cert_content = crypto.dump_certificate(crypto.FILETYPE_PEM, cert)
 
 
-    def parse_certificate(self, cert_string = False):
+    def parse_certificate(self):
         self.logger.info("-parse certificate")
 
-        if cert_string:
-            return str(self.cert_content)
-
-            # Parse the certificate
+        # Parse the certificate
         cert = x509.load_pem_x509_certificate(self.cert_content, default_backend())
 
         # Extract the issuer
@@ -121,6 +118,7 @@ class CertHandler:
         self.parsed_cert["c"] = country_attr[0].value if country_attr else "None"
         self.parsed_cert["st"] = state_attr[0].value if state_attr else "None"
         self.parsed_cert["pseudonym"] = pseudonym_attr[0].value if pseudonym_attr else "None"
+        self.parsed_cert["cert_str"] = str(self.cert_content)
 
 
         self.logger.info(self.parsed_cert)
