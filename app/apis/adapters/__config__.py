@@ -33,13 +33,13 @@ class Configuration:
         self.p12_auth_file_pwd = 'foo123'
 
         # IDevID configuration for EJBCA
-        self.certificate_profile_name_idev = 'DeviceIdentity-Raspberry',
-        self.end_entity_profile_name_idev = 'KF-CS-EE-DeviceIdentity-Raspberry',
+        self.certificate_profile_name_idev = 'DeviceIdentity-Raspberry'
+        self.end_entity_profile_name_idev = 'KF-CS-EE-DeviceIdentity-Raspberry'
         self.certificate_authority_name_idev = 'KF-CS-HMI-2023-CA'
         self.ca_chain_url_idev = "https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem"
         # LDevID configuration for EJBCA
-        self.certificate_profile_name_ldev_basic = 'DeviceIdentity-Raspberry',
-        self.end_entity_profile_name_ldev_basic = 'KF-CS-EE-DeviceIdentity-Raspberry',
+        self.certificate_profile_name_ldev_basic = 'DeviceIdentity-Raspberry'
+        self.end_entity_profile_name_ldev_basic = 'KF-CS-EE-DeviceIdentity-Raspberry'
         self.certificate_authority_name_ldev_basic = 'KF-CS-HMI-2023-CA'
 
     def local_setup(self):
@@ -53,12 +53,12 @@ class Configuration:
         self.p12_auth_file_pwd = 'foo123'
 
         # IDevID configuration for EJBCA
-        self.certificate_profile_name_idev = 'EndEntityProfile-IDevId',
-        self.end_entity_profile_name_idev = 'EndEntity-IDevId',
+        self.certificate_profile_name_idev = 'EndEntityProfile-IDevId'
+        self.end_entity_profile_name_idev = 'EndEntity-IDevId'
         self.certificate_authority_name_idev = 'IDevID-CA'
         self.ca_chain_url_idev = "https://192.168.1.3/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1794496514&format=pem"
 
         # LDevID configuration for EJBCA
-        self.certificate_profile_name_ldev_basic = 'DeviceIdentity-Raspberry',
-        self.end_entity_profile_name_ldev_basic = 'KF-CS-EE-DeviceIdentity-Raspberry',
+        self.certificate_profile_name_ldev_basic = 'DeviceIdentity-Raspberry'
+        self.end_entity_profile_name_ldev_basic = 'KF-CS-EE-DeviceIdentity-Raspberry'
         self.certificate_authority_name_ldev_basic = 'KF-CS-HMI-2023-CA'
