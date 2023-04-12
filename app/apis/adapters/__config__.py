@@ -46,7 +46,7 @@ class Configuration:
         #self.logger.info("Using the Local configuration")
 
         # EJBCA URL and authentication
-        self.ejbca_url = 'ejbca-node1'
+        self.ejbca_url = '192.168.1.3'
         self.p12_auth_file_path = '/home/admin/certs/RestAdminHmi_0001.p12'
         self.p12_auth_file_pwd = 'foo123'
 
