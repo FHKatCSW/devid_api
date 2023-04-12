@@ -66,7 +66,7 @@ class CertRequest:
             self.logger.info("--Serial number: {}".format(response["serial_number"]))
 
         except requests.exceptions.HTTPError as err:
-            self.logger.error("❌ HTTP error occurred:", str(err))
+            self.logger.error("❌ HTTP error occurred: %s", str(err))
         except requests.exceptions.RequestException as err:
             self.logger.error("❌ An error occurred:", str(err))
         except (json.JSONDecodeError, OSError, KeyError) as e:
