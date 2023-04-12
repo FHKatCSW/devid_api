@@ -22,7 +22,7 @@ class Configuration:
 
         self.hsm_pin = "1234"
 
-        self.local_setup()
+        self.azure_setup()
 
     def azure_setup(self):
         self.logger.info("Using the Azure configuration")
