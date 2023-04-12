@@ -22,10 +22,10 @@ class Configuration:
 
         self.hsm_pin = "1234"
 
-        self.azure_setup()
+        self.local_setup()
 
     def azure_setup(self):
-        self.logger.info("Using the Azure configuration")
+        #self.logger.info("Using the Azure configuration")
 
         # EJBCA URL and authentication
         self.ejbca_url = 'campuspki.germanywestcentral.cloudapp.azure.com'
@@ -43,10 +43,10 @@ class Configuration:
         self.certificate_authority_name_ldev_basic = 'KF-CS-HMI-2023-CA'
 
     def local_setup(self):
-        self.logger.info("Using the Local configuration")
+        #self.logger.info("Using the Local configuration")
 
         # EJBCA URL and authentication
-        self.ejbca_url = 'ejbca-node1:443'
+        self.ejbca_url = 'ejbca-node1'
         self.p12_auth_file_path = '/home/admin/certs/RestAdminHmi_0001.p12'
         self.p12_auth_file_pwd = 'foo123'
 
