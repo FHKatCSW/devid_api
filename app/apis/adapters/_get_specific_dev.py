@@ -1,10 +1,12 @@
 from cert_handler import CertHandler
 from hsm_objects import HsmObjects
+from app.apis.adapters.__config__ import Configuration
 
+config = Configuration()
 
 def main(id):
     export_cert = CertHandler(
-        pin="1234",
+        pin=config.hsm_pin,
         cert_id=id,
     )
     export_cert.export_certificate(output_directory="/home/admin/")

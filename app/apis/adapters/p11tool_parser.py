@@ -1,6 +1,9 @@
 import json
 import re
 import subprocess
+from app.apis.adapters.__config__ import Configuration
+
+config = Configuration()
 
 class P11ToolParser:
     def __init__(self, pin):
@@ -41,7 +44,7 @@ class P11ToolParser:
         return None
 
 def main():
-    p11_keys = P11ToolParser(pin="1234")
+    p11_keys = P11ToolParser(pin=config.hsm_pin)
     p11_keys.get_keys()
     url = p11_keys.get_url_by_label("ldev_pvt_key_3443")
     print(url)

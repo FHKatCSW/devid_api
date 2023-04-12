@@ -2,7 +2,7 @@ import json
 import requests
 from requests_pkcs12 import Pkcs12Adapter
 from app.apis.adapters import logger
-from app.apis.adapters import __config__ as config
+from app.apis.adapters.__config__ import Configuration
 
 class EjbcaHealth:
     def __init__(self, base_url, p12_file, p12_pass):
@@ -44,7 +44,7 @@ class EjbcaHealth:
 
 
 if __name__ == "__main__":
-    config = config.Configuration()
+    config = Configuration()
     health = EjbcaHealth(
         base_url=config.ejbca_url,
         p12_file=config.p12_auth_file_path,

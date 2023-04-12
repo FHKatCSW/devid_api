@@ -3,6 +3,9 @@ from app.apis.adapters.hsm_objects import HsmObjects
 from app.apis.adapters.bootstrap_process import BootstrapDevId
 from app.apis.adapters.cert_handler import CertHandler
 from flask import jsonify
+from app.apis.adapters.__config__ import Configuration
+
+config = Configuration()
 
 
 
@@ -16,7 +19,7 @@ class HighLvlIDevDelete(Resource):
         """Only for demonstration purpose: Delete the actual IDevID (key + cert)"""
         try:
             del_idev = HsmObjects(slot_num=0,
-                              pin="1234")
+                              pin=config.hsm_pin)
             del_idev.delete_idev_objects()
             return {"success": True,
                     "message": "Keys deleted"}
@@ -32,9 +35,9 @@ class HighLvlIDevValidate(Resource):
     def post(self):
         """Only for demonstration purpose: Delete the actual IDevID cert"""
         try:
-            idevid = BootstrapDevId(pin="1234", slot=0)
+            idevid = BootstrapDevId(pin=config.hsm_pin, slot=0)
             valid = idevid.validate_idev_certifificate(
-                ca_chain_url="https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem")
+                ca_chain_url=config.ca_chain_url_idev)
             return {"success": True,
                     "message": "Validation checked",
                     "valid": valid}
@@ -50,16 +53,16 @@ class HighLvlIDevProvision(Resource):
     def post(self):
         """Only for demonstration purpose: Provision a new IDevID (key + cert)"""
         try:
-            idevid = BootstrapDevId(pin="1234", slot=0)
+            idevid = BootstrapDevId(pin=config.hsm_pin, slot=0)
             idevid.setup_idev_id()
             idevid.create_key()
             idevid.generate_csr(o="Keyfactor", ou="IoT-Department", c="DE", pseudonym="Wonderdevice 2.0")
-            idevid.request_cert(base_url='campuspki.germanywestcentral.cloudapp.azure.com',
-                                p12_file='/home/admin/fhk_hmi_setup_v3.p12',
-                                p12_pass='foo123',
-                                certificate_profile_name='DeviceIdentity-Raspberry',
-                                end_entity_profile_name='KF-CS-EE-DeviceIdentity-Raspberry',
-                                certificate_authority_name='KF-CS-HMI-2023-CA')
+            idevid.request_cert(base_url=config.ejbca_url,
+                                p12_file=config.p12_auth_file_path,
+                                p12_pass=config.p12_auth_file_pwd,
+                                certificate_profile_name=config.certificate_profile_name_idev,
+                                end_entity_profile_name=config.end_entity_profile_name_idev,
+                                certificate_authority_name=config.certificate_authority_name_idev)
             idevid.import_certificate()
             return {"success": True,
                     "message": "Bootstrap done"}

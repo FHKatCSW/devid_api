@@ -2,7 +2,9 @@ import requests
 import OpenSSL.crypto as crypto
 from app.apis.adapters import logger
 from app.apis.adapters.cert_handler import CertHandler
+from app.apis.adapters.__config__ import Configuration
 
+config = Configuration()
 
 class CertValidator:
     def __init__(self, id):
@@ -61,6 +63,6 @@ def validate_cert_via_public_web(ca_chain_url, cert_id):
     public_web_validator.validate()
 
 if __name__ == "__main__":
-    ca_chain_url = "https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem"
+    ca_chain_url = config.ca_chain_url_idev
     cert_id = "9089f2a47f0000001000000000000000"
     validate_cert_via_public_web(ca_chain_url, cert_id)

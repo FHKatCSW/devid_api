@@ -4,6 +4,9 @@ import os
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 import OpenSSL.crypto as crypto
+from app.apis.adapters.__config__ import Configuration
+
+config = Configuration()
 
 
 class CertHandler:
@@ -128,7 +131,7 @@ class CertHandler:
 
 def import_certificate():
     insert_cert = CertHandler(
-        pin = "1234",
+        pin = config.hsm_pin,
         cert_id = 5,
     )
     insert_cert.insert_certificate(slot=0,
@@ -137,7 +140,7 @@ def import_certificate():
 
 def export_certificate():
     export_cert = CertHandler(
-        pin = "1234",
+        pin = config.hsm_pin,
         cert_id = 5,
     )
     export_cert.export_certificate(output_directory="/home/admin/")

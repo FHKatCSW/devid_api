@@ -4,6 +4,9 @@ import subprocess
 import os
 from app.apis.adapters import logger
 from app.apis.adapters.id_manager import IDManager
+from app.apis.adapters.__config__ import Configuration
+
+config = Configuration()
 
 
 class HsmObjects:
@@ -138,15 +141,11 @@ class HsmObjects:
         subprocess.call(command)
 
 
-
-
-
-
 def main():
     print("--- Print Objects ---")
     hsm_objects = HsmObjects(
         slot_num=0,
-        pin='1234'
+        pin=config.hsm_pin
     )
     print(hsm_objects.to_dict())
     print(hsm_objects.to_json())
@@ -157,7 +156,7 @@ def main():
 def most_recent_ldev():
     hsm_objects = HsmObjects(
         slot_num=0,
-        pin='1234'
+        pin=config.hsm_pin
     )
     most_recent = hsm_objects.get_most_recent_ldev_id()
     print(most_recent)
@@ -165,14 +164,14 @@ def most_recent_ldev():
 def delete_idev():
     hsm_objects = HsmObjects(
         slot_num=0,
-        pin='1234'
+        pin=config.hsm_pin
     )
     hsm_objects.delete_idev_objects()
 
 def get_actual_idev():
     hsm_objects = HsmObjects(
         slot_num=0,
-        pin='1234'
+        pin=config.hsm_pin
     )
     print(hsm_objects.get_actual_idev_id())
 

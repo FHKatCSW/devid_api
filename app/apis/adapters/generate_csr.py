@@ -2,6 +2,9 @@ import subprocess
 import random
 from app.apis.adapters.hsm_objects import HsmObjects
 from app.apis.adapters import logger
+from app.apis.adapters.__config__ import Configuration
+
+config = Configuration()
 
 
 class GenerateCsr:
@@ -73,7 +76,7 @@ if __name__ == "__main__":
     print("--- Generate CSR ---")
     csr_generate = GenerateCsr(
         slot_num=0,
-        pin='1234',
+        pin=config.hsm_pin,
         key_id='4',
         output_file='/home/admin/csr_{}.csr'.format(random_id)
     )

@@ -3,7 +3,9 @@ from app.apis.adapters.hsm_objects import HsmObjects
 from app.apis.adapters.bootstrap_process import BootstrapDevId
 from app.apis.adapters.cert_handler import CertHandler
 from app.apis.adapters.validate_chain import CertValidator
+from app.apis.adapters.__config__ import Configuration
 
+config = Configuration()
 api = Namespace("Highlevel-LDevID", description="Highlevel REST API Calls for the LDevID module")
 
 @api.route('/delete', endpoint='highlvl-ldev-del')
@@ -14,7 +16,7 @@ class HighLvlLdevDelete(Resource):
         """Only for demonstration purpose: Delete the most recent LDevID (key + cert)"""
         try:
             del_idev = HsmObjects(slot_num=0,
-                              pin="1234")
+                              pin=config.hsm_pin)
             del_idev.delete_ldev_objects()
             return {"success": True,
                     "message": "Keys deleted"}
@@ -31,7 +33,7 @@ class HighLvlLdevValidate(Resource):
         try:
             slot_num=0
             pin="1234"
-            ca_chain_url = "https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem"
+            ca_chain_url = config.ca_chain_url_idev
             hsm_objects = HsmObjects(
                 slot_num=slot_num,
                 pin=pin)
@@ -57,15 +59,15 @@ class HighLvlLdevProvision(Resource):
             ldevid = BootstrapDevId(pin="1234", slot=0)
             ldevid.setup_ldev_id()
             ldevid.validate_idev_certifificate(
-                ca_chain_url="https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem")
+                ca_chain_url=config.ca_chain_url_idev)
             ldevid.create_key()
             ldevid.generate_csr()
-            ldevid.request_cert(base_url='campuspki.germanywestcentral.cloudapp.azure.com',
-                                p12_file='/home/admin/fhk_hmi_setup_v3.p12',
-                                p12_pass='foo123',
-                                certificate_profile_name='DeviceIdentity-Raspberry',
-                                end_entity_profile_name='KF-CS-EE-DeviceIdentity-Raspberry',
-                                certificate_authority_name='KF-CS-HMI-2023-CA')
+            ldevid.request_cert(base_url=config.ejbca_url,
+                                p12_file=config.p12_auth_file_path,
+                                p12_pass=config.p12_auth_file_pwd,
+                                certificate_profile_name=config.certificate_profile_name_ldev_basic,
+                                end_entity_profile_name=config.end_entity_profile_name_ldev_basic,
+                                certificate_authority_name=config.certificate_authority_name_ldev_basic)
             ldevid.import_certificate()
             ldevid.configure_azure()
             return {"success": True,

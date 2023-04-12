@@ -1,9 +1,12 @@
 import json
 import subprocess
 import re
+from app.apis.adapters.__config__ import Configuration
+
+config = Configuration()
 
 # Execute the p11tool command and capture its output
-cmd = ['p11tool', '--provider=/usr/lib/opensc-pkcs11.so', '--list-keys', '--login', '--set-pin=1234']
+cmd = ['p11tool', '--provider=/usr/lib/opensc-pkcs11.so', '--list-keys', '--login', '--set-pin={}'.format(config.hsm_pin)]
 output = subprocess.check_output(cmd, universal_newlines=True)
 
 

@@ -7,6 +7,9 @@ import base64
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
+from app.apis.adapters.__config__ import Configuration
+
+config = Configuration()
 
 
 class CertRequest:
@@ -102,9 +105,9 @@ class CertRequest:
 
 if __name__ == "__main__":
     cert_req = CertRequest(
-        base_url='campuspki.germanywestcentral.cloudapp.azure.com',
-        p12_file='/home/admin/fhk_hmi_setup_v3.p12',
-        p12_pass='foo123',
+        base_url=config.ejbca_url,
+        p12_file=config.p12_auth_file_path,
+        p12_pass=config.p12_auth_file_pwd,
         csr_file='/home/admin/ldev-azure.csr',
     )
 

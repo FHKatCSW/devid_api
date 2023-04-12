@@ -1,6 +1,9 @@
 from pyhsm.hsmclient import HsmClient
 import random
 from app.apis.adapters import logger
+from app.apis.adapters.__config__ import Configuration
+
+config = Configuration()
 
 
 class HsmKey:
@@ -48,7 +51,7 @@ class HsmKey:
 def generate_ldev_key():
     random_id = random.randint(1000, 9999)
     hsm_key = HsmKey(slot=0,
-                     pin="1234",
+                     pin=config.hsm_pin,
                      public_key_label="ldev_pub_key_{}".format(random_id),
                      private_key_label="ldev_pvt_key_{}".format(random_id))
     hsm_key.generate_rsa_key_pair()
@@ -56,7 +59,7 @@ def generate_ldev_key():
 def generate_idev_key():
     random_id = random.randint(1000, 9999)
     hsm_key = HsmKey(slot=0,
-                     pin="1234",
+                     pin=config.hsm_pin,
                      public_key_label="idev_pub_key_{}".format(random_id),
                      private_key_label="idev_pvt_key_{}".format(random_id))
     hsm_key.generate_rsa_key_pair()
