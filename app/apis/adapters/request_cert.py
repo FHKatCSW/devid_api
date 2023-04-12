@@ -36,6 +36,8 @@ class CertRequest:
             }
             json_payload = json.dumps(payload)
 
+            self.logger.info(str(json_payload))
+
             url = f'https://{self.base_url}/ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll'
 
             # Send request
