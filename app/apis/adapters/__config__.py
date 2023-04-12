@@ -37,7 +37,6 @@ class Configuration:
         self.end_entity_profile_name_idev = 'KF-CS-EE-DeviceIdentity-Raspberry',
         self.certificate_authority_name_idev = 'KF-CS-HMI-2023-CA'
         self.ca_chain_url_idev = "https://campuspki.germanywestcentral.cloudapp.azure.com/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1791256346&format=pem"
-
         # LDevID configuration for EJBCA
         self.certificate_profile_name_ldev_basic = 'DeviceIdentity-Raspberry',
         self.end_entity_profile_name_ldev_basic = 'KF-CS-EE-DeviceIdentity-Raspberry',
@@ -48,7 +47,7 @@ class Configuration:
 
         # EJBCA URL and authentication
         self.ejbca_url = 'ejbca-node1:443'
-        self.p12_auth_file_path = '/home/admin/RestAdminHmi_0001.p12'
+        self.p12_auth_file_path = '/home/admin/certs/RestAdminHmi_0001.p12'
         self.p12_auth_file_pwd = 'foo123'
 
         # IDevID configuration for EJBCA
