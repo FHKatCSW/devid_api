@@ -16,9 +16,21 @@ class Configuration:
         self.ca_chain_url_idev = None
 
         # LDevID configuration for EJBCA
-        self.certificate_profile_name_ldev_basic = None,
-        self.end_entity_profile_name_ldev_basic = None,
+        self.certificate_profile_name_ldev_basic = None
+        self.end_entity_profile_name_ldev_basic = None
         self.certificate_authority_name_ldev_basic = None
+
+        self.certificate_profile_name_ldev_opc_server = None
+        self.end_entity_profile_name_ldev_opc_server = None
+        self.certificate_authority_name_ldev_opc_server = None
+
+        self.certificate_profile_name_ldev_azure = None
+        self.end_entity_profile_name_ldev_azure = None
+        self.certificate_authority_name_ldev_azure = None
+
+        self.certificate_profile_name_ldev_aws = None
+        self.end_entity_profile_name_ldev_aws = None
+        self.certificate_authority_name_ldev_aws = None
 
         self.hsm_pin = "1234"
 
@@ -62,3 +74,15 @@ class Configuration:
         self.certificate_profile_name_ldev_basic = 'DeviceIdentity-Raspberry'
         self.end_entity_profile_name_ldev_basic = 'KF-CS-EE-DeviceIdentity-Raspberry'
         self.certificate_authority_name_ldev_basic = 'KF-CS-HMI-2023-CA'
+
+        self.certificate_profile_name_ldev_opc_server = "EndEntityProfile-OpcUa-Server"
+        self.end_entity_profile_name_ldev_opc_server = "EndEntity-OpcUa-Server"
+        self.certificate_authority_name_ldev_opc_server = "OpcUa-CA"
+
+        self.certificate_profile_name_ldev_azure = "EndEntityProfile-Azure"
+        self.end_entity_profile_name_ldev_azure = "EndEntity-Azure"
+        self.certificate_authority_name_ldev_azure = "CloudConnect-CA"
+
+        self.certificate_profile_name_ldev_aws = "EndEntityProfile-Aws"
+        self.end_entity_profile_name_ldev_aws = "EndEntity-Aws"
+        self.certificate_authority_name_ldev_aws = "CloudConnect-CA"

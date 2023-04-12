@@ -54,9 +54,9 @@ class HighLvlLdevProvision(Resource):
 
     @api.doc("post")
     def post(self):
-        """Only for demonstration purpose: Provision a new IDevID (key + cert) via Azure"""
+        """Only for demonstration purpose: Provision a new LDevID (key + cert)"""
         try:
-            ldevid = BootstrapDevId(pin="1234", slot=0)
+            ldevid = BootstrapDevId(pin=config.hsm_pin, slot=0)
             ldevid.setup_ldev_id()
             ldevid.validate_idev_certifificate(
                 ca_chain_url=config.ca_chain_url_idev)
@@ -69,7 +69,88 @@ class HighLvlLdevProvision(Resource):
                                 end_entity_profile_name=config.end_entity_profile_name_ldev_basic,
                                 certificate_authority_name=config.certificate_authority_name_ldev_basic)
             ldevid.import_certificate()
-            ldevid.configure_azure()
+            #ldevid.configure_azure()
+            return {"success": True,
+                    "message": "Bootstrap done"}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err)}
+
+@api.route('/provision-opc-ua-server', endpoint='highlvl-ldev-prov-opc-ua-server')
+class HighLvlLdevProvisionOpcUaServer(Resource):
+
+    @api.doc("post")
+    def post(self):
+        """Only for demonstration purpose: Provision a new LDevID (key + cert) for an OPC UA Server"""
+        try:
+            ldevid = BootstrapDevId(pin=config.hsm_pin, slot=0)
+            ldevid.setup_ldev_id()
+            ldevid.validate_idev_certifificate(
+                ca_chain_url=config.ca_chain_url_idev)
+            ldevid.create_key()
+            ldevid.generate_csr()
+            ldevid.request_cert(base_url=config.ejbca_url,
+                                p12_file=config.p12_auth_file_path,
+                                p12_pass=config.p12_auth_file_pwd,
+                                certificate_profile_name=config.certificate_profile_name_ldev_opc_server,
+                                end_entity_profile_name=config.end_entity_profile_name_ldev_opc_server,
+                                certificate_authority_name=config.certificate_authority_name_ldev_opc_server)
+            ldevid.import_certificate()
+            #ldevid.configure_azure()
+            return {"success": True,
+                    "message": "Bootstrap done"}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err)}
+
+@api.route('/provision-azure', endpoint='highlvl-ldev-prov-azure')
+class HighLvlLdevProvisionAzure(Resource):
+
+    @api.doc("post")
+    def post(self):
+        """Only for demonstration purpose: Provision a new LDevID (key + cert) to connect to Azure"""
+        try:
+            ldevid = BootstrapDevId(pin=config.hsm_pin, slot=0)
+            ldevid.setup_ldev_id()
+            ldevid.validate_idev_certifificate(
+                ca_chain_url=config.ca_chain_url_idev)
+            ldevid.create_key()
+            ldevid.generate_csr()
+            ldevid.request_cert(base_url=config.ejbca_url,
+                                p12_file=config.p12_auth_file_path,
+                                p12_pass=config.p12_auth_file_pwd,
+                                certificate_profile_name=config.certificate_profile_name_ldev_azure,
+                                end_entity_profile_name=config.end_entity_profile_name_ldev_azure,
+                                certificate_authority_name=config.certificate_authority_name_ldev_azure)
+            ldevid.import_certificate()
+            #ldevid.configure_azure()
+            return {"success": True,
+                    "message": "Bootstrap done"}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err)}
+
+@api.route('/provision-aws', endpoint='highlvl-ldev-prov-aws')
+class HighLvlLdevProvisionAws(Resource):
+
+    @api.doc("post")
+    def post(self):
+        """Only for demonstration purpose: Provision a new LDevID (key + cert) to connect to aws"""
+        try:
+            ldevid = BootstrapDevId(pin=config.hsm_pin, slot=0)
+            ldevid.setup_ldev_id()
+            ldevid.validate_idev_certifificate(
+                ca_chain_url=config.ca_chain_url_idev)
+            ldevid.create_key()
+            ldevid.generate_csr()
+            ldevid.request_cert(base_url=config.ejbca_url,
+                                p12_file=config.p12_auth_file_path,
+                                p12_pass=config.p12_auth_file_pwd,
+                                certificate_profile_name=config.certificate_profile_name_ldev_aws,
+                                end_entity_profile_name=config.end_entity_profile_name_ldev_aws,
+                                certificate_authority_name=config.certificate_authority_name_ldev_aws)
+            ldevid.import_certificate()
+            #ldevid.configure_azure()
             return {"success": True,
                     "message": "Bootstrap done"}
         except Exception as err:
