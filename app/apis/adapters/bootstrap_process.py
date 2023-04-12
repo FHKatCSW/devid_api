@@ -169,7 +169,7 @@ class BootstrapDevId:
 
 
 def bootstrap_idev():
-    idevid = BootstrapDevId(pin="1234", slot=0)
+    idevid = BootstrapDevId(pin=config.hsm_pin, slot=0)
     idevid.setup_idev_id()
     idevid.create_key()
     idevid.generate_csr()
@@ -182,7 +182,7 @@ def bootstrap_idev():
     idevid.import_certificate()
 
 def bootstrap_ldev():
-    ldevid = BootstrapDevId(pin="1234", slot=0)
+    ldevid = BootstrapDevId(pin=config.hsm_pin, slot=0)
     ldevid.setup_ldev_id()
     ldevid.validate_idev_certifificate(ca_chain_url=config.ca_chain_url_idev)
     ldevid.create_key()
