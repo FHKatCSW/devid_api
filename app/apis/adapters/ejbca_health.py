@@ -2,8 +2,7 @@ import json
 import requests
 from requests_pkcs12 import Pkcs12Adapter
 from app.apis.adapters import logger
-
-
+from app.apis.adapters import __config__ as config
 
 class EjbcaHealth:
     def __init__(self, base_url, p12_file, p12_pass):
@@ -45,9 +44,10 @@ class EjbcaHealth:
 
 
 if __name__ == "__main__":
+    config = config.Configuration()
     health = EjbcaHealth(
-        base_url='campuspki.germanywestcentral.cloudapp.azure.com',
-        p12_file='/home/admin/fhk_hmi_setup_v3.p12',
-        p12_pass='foo123',
+        base_url=config.ejbca_url,
+        p12_file=config.p12_auth_file_path,
+        p12_pass=config.p12_auth_file_pwd,
     )
     health.health_status()
