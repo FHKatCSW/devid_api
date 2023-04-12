@@ -46,7 +46,7 @@ class CertRequest:
             response = session.post(
                 url=url,
                 headers={'Content-Type': 'application/json', 'Accept': 'application/json'},
-                data=json_payload,
+                data=payload,
                 verify=False
             )
             response.raise_for_status()  # raise an HTTPError if status code is >= 400
