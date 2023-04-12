@@ -17,7 +17,7 @@ class EjbcaHealth:
     def health_status(self):
         # Create JSON payload
         try:
-            url = f'https://{self.base_url}/ejbca/ejbca-rest-api/v1/ca/status'
+            url = f'https://{self.base_url}/ejbca/ejbca-rest-api/v1/certificate/status'
 
             # Send request
             session = requests.Session()
