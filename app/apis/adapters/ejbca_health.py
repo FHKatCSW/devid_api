@@ -30,7 +30,12 @@ class EjbcaHealth:
             )
             response.raise_for_status()  # raise an HTTPError if status code is >= 400
             response = json.loads(response.text)
-            self.logger.info("--Response: {}".format(response))
+            if response['status'] == "OK":
+                self.logger.info("-EJBCA up and running ✅")
+            else:
+                self.logger.info("-EJBCA down ❌")
+
+            #self.logger.info("--Response: {}".format(response))
         except requests.exceptions.HTTPError as err:
             self.logger.error("HTTP error occurred:", err)
         except requests.exceptions.RequestException as err:
