@@ -1,12 +1,8 @@
 import json
 import requests
 from requests_pkcs12 import Pkcs12Adapter
-import OpenSSL.crypto
 from app.apis.adapters import logger
-import base64
-from cryptography import x509
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import serialization
+
 
 
 class EjbcaHealth:
@@ -22,7 +18,7 @@ class EjbcaHealth:
     def health_status(self):
         # Create JSON payload
         try:
-            url = f'https://{self.base_url}/ejbca/ejbca-rest-api/v1/certificate/status'
+            url = f'https://{self.base_url}/ejbca/ejbca-rest-api/v1/ca/status'
 
             # Send request
             session = requests.Session()
