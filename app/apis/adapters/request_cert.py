@@ -108,10 +108,10 @@ if __name__ == "__main__":
         base_url=config.ejbca_url,
         p12_file=config.p12_auth_file_path,
         p12_pass=config.p12_auth_file_pwd,
-        csr_file='/home/admin/ldev-azure.csr',
+        csr_file='/home/admin/certs/id_74976/csr_74976.csr',
     )
 
     cert_req.request_certificate(cert_file='/home/admin/my_cert.pem',
-                                 certificate_profile_name='DeviceIdentity-Raspberry',
-                                 end_entity_profile_name='KF-CS-EE-DeviceIdentity-Raspberry',
-                                 certificate_authority_name='KF-CS-HMI-2023-CA')
+                                 certificate_profile_name=config.certificate_profile_name_idev,
+                                 end_entity_profile_name=config.end_entity_profile_name_idev,
+                                 certificate_authority_name=config.certificate_authority_name_idev)
