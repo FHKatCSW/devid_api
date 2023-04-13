@@ -17,7 +17,6 @@ def main():
     )
     export_cert.export_certificate(output_directory="/home/admin/")
     actual_idev = export_cert.parse_certificate()
-    print(actual_idev)
 
 if __name__ == "__main__":
     main()

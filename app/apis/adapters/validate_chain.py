@@ -64,5 +64,5 @@ def validate_cert_via_public_web(ca_chain_url, cert_id):
 
 if __name__ == "__main__":
     ca_chain_url = config.ca_chain_url_idev
-    cert_id = "9089f2a47f0000001000000000000000"
+    cert_id = "90c8bdaa7f0000001000000000000000"
     validate_cert_via_public_web(ca_chain_url, cert_id)
