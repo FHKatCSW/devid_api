@@ -36,6 +36,7 @@ class BootstrapDevId:
         self.public_key_label="idev_pub_key_{}".format(self.id)
         self.cert_path='/home/admin/certs/id_{}/idev_cert_{}.cert.pem'.format(self.id, self.id)
         self.cn="idev_cn_{}".format(self.id)
+        self.serial_number=self.id
 
         self.presetup()
 
@@ -49,9 +50,7 @@ class BootstrapDevId:
 
 
     def presetup(self):
-
         self.validate_key_label_exists()
-        self.serial_number=self.id
 
         self.create_directory("/home/admin/certs")
         self.create_directory("/home/admin/certs/id_{}".format(self.id))
