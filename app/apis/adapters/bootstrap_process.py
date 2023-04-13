@@ -25,6 +25,7 @@ class BootstrapDevId:
         self.idev = False
         self.ldev = False
         self.hsm_id = None
+        self.serial_number = None
         self.id = random.randint(10000, 99999)
 
 
