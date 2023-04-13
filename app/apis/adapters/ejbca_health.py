@@ -16,6 +16,8 @@ class EjbcaHealth:
 
     def health_status(self):
         # Create JSON payload
+        up_and_running = False
+        message = "Initial message"
         try:
             url = f'https://{self.base_url}/ejbca/ejbca-rest-api/v1/certificate/status'
 
@@ -31,16 +33,24 @@ class EjbcaHealth:
             response = json.loads(response.text)
             if response['status'] == "OK":
                 self.logger.info("-EJBCA up and running ✅")
+                up_and_running = True
+                message = "EJBCA up and running"
             else:
                 self.logger.info("-EJBCA down ❌")
+                message = "EJBCA down"
 
             #self.logger.info("--Response: {}".format(response))
         except requests.exceptions.HTTPError as err:
-            self.logger.error("HTTP error occurred:", err)
+            self.logger.error("HTTP error occurred:", str(err))
+            message = str(err)
         except requests.exceptions.RequestException as err:
-            self.logger.error("An error occurred:", err)
-        except (json.JSONDecodeError, OSError, KeyError) as e:
-            self.logger.error(f"Error requesting certificate: {str(e)}")
+            self.logger.error("An error occurred:", str(err))
+            message = str(err)
+        except (json.JSONDecodeError, OSError, KeyError) as err:
+            self.logger.error(f"Error requesting certificate: {str(err)}")
+            message = str(err)
+        finally:
+            return {'success': up_and_running, 'message': message}
 
 
 if __name__ == "__main__":

@@ -1,4 +1,8 @@
 from flask_restx import Namespace, Resource, fields
+from app.apis.adapters.__config__ import Configuration
+from app.apis.adapters import ejbca_health
+
+config = Configuration()
 
 api = Namespace("mgmt", description="IEEE 802.1 ARManagement related operations")
 
@@ -71,6 +75,26 @@ class LDevIdStatus(Resource):
         """Status of the LDevID"""
         return {"success": True,
                 "message": "NotImplemented"}
+
+@api.route('/status/ejbca', endpoint='status-ejbca')
+class EjbcaStatusStatus(Resource):
+
+    @api.doc("post")
+    def post(self):
+        """Status of the EJBCA instance"""
+        try:
+            config = Configuration()
+            health = ejbca_health.EjbcaHealth(
+                base_url=config.ejbca_url,
+                p12_file=config.p12_auth_file_path,
+                p12_pass=config.p12_auth_file_pwd,
+            )
+            status = health.health_status()
+            return {"success": status['success'],
+                    "message": status['message']}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err)}
 
 @api.route('/dev-id-cert/<certificateIndex>/<state>', endpoint='dev-id-cert')
 @api.doc(params={'certificateIndex': 'The certificateIndex of the DevID',
