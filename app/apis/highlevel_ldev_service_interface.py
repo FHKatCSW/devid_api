@@ -165,7 +165,7 @@ class HighLvlLdevActual(Resource):
         """Only for demonstration purpose: Provide the content of the most recent LDevID certificate"""
         try:
             slot_num=0
-            pin="1234"
+            pin=config.hsm_pin
             hsm_objects = HsmObjects(
                 slot_num=slot_num,
                 pin=pin
