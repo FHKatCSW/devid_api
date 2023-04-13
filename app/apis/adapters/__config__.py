@@ -68,7 +68,7 @@ class Configuration:
         self.certificate_profile_name_idev = 'EndEntityProfile-IDevId'
         self.end_entity_profile_name_idev = 'EndEntity-IDevId'
         self.certificate_authority_name_idev = 'IDevID-CA'
-        self.ca_chain_url_idev = "https://192.168.1.3/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=-1794496514&format=pem"
+        self.ca_chain_url_idev = "https://192.168.1.3/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=576048594&format=pem"
 
         # LDevID configuration for EJBCA
         self.certificate_profile_name_ldev_basic = 'DeviceIdentity-Raspberry'
