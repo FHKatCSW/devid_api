@@ -16,7 +16,8 @@ class CertValidator:
         self.logger.info("-load CA chain via public web interface")
         response = requests.get(ca_chain_url, verify=False)
         ca_chain = response.content.decode("utf-8")
-        self.logger.info(str(ca_chain))
+        if "-----BEGIN CERTIFICATE-----" not in response:
+            self.logger.info("-- ❌ something went wrong with download of the CA chain")
         certs = ca_chain.split("-----BEGIN CERTIFICATE-----\n")[1:]
         certs = ["-----BEGIN CERTIFICATE-----\n" + cert for cert in certs]
         self.ca_certs = [crypto.load_certificate(crypto.FILETYPE_PEM, cert) for cert in certs]
