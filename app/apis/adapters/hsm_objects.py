@@ -73,6 +73,20 @@ class HsmObjects:
 
         return keycounter
 
+    def count_idev_keys(self):
+        return self.count_key_by_type("idev")
+
+    def count_ldev_keys(self):
+        return self.count_key_by_type("ldev")
+
+    def count_key_by_type(self, type):
+        dev_count = 0
+        for key in self.to_dict():
+            for subkey in self.to_dict()[key]:
+                if subkey.startswith(type):
+                    dev_count += 1
+        return dev_count
+
     def coun_certificates(self):
         certificates_count = len(self.to_dict()['certificates'])
         return certificates_count

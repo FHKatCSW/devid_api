@@ -16,6 +16,11 @@ def main():
     print("Number of public keys on HSM: {}".format(hsm_objects.count_keys(private=False)))
     print("Number of certificates on HSM: {}".format(hsm_objects.coun_certificates()))
 
+    print("Number of LDev keys on HSM: {}".format(hsm_objects.count_ldev_keys()))
+    print("Number of IDev keys on HSM: {}".format(hsm_objects.count_idev_keys()))
+
+
+
 
 if __name__ == "__main__":
     main()
