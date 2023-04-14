@@ -19,6 +19,9 @@ def main():
     print("Number of LDev keys on HSM: {}".format(hsm_objects.count_ldev_keys()))
     print("Number of IDev keys on HSM: {}".format(hsm_objects.count_idev_keys()))
 
+    print("Number of LDev certs on HSM: {}".format(hsm_objects.count_ldev_certs()))
+    print("Number of IDev certs on HSM: {}".format(hsm_objects.count_idev_certs()))
+
 
 
 
