@@ -21,7 +21,8 @@ class HsmObjects:
     def list_objects_on_hsm(self):
         self.logger.info("-List objects on HSM")
         # Run the bash script and capture the output
-        result = subprocess.check_output(["/home/admin/devid_api/app/apis/adapters/bash/list_objects.sh",  str(self.slot_num), self.pin])
+        result = subprocess.check_output(
+            ["/home/admin/devid_api/app/apis/adapters/bash/list_objects.sh", str(self.slot_num), self.pin])
         result_str = result.decode('utf-8')  # decode bytes object to string
         return result_str
 
@@ -54,14 +55,27 @@ class HsmObjects:
             elif line.startswith("Access:"):
                 self.parsed_objects[current_key_type][current_key_label]["Access"] = line.split(":")[1].strip()
             elif line.startswith("subject:"):
-                self.parsed_objects[current_key_type][current_key_label]["subject"] = "{}: {}".format(line.split(":")[1].strip(), line.split(":")[2].strip())
-
+                self.parsed_objects[current_key_type][current_key_label]["subject"] = "{}: {}".format(
+                    line.split(":")[1].strip(), line.split(":")[2].strip())
 
     def to_dict(self):
         return self.parsed_objects
 
     def to_json(self):
         return json.dumps(self.to_dict(), indent=4)
+
+    def count_keys(self, private=True, public=True):
+        keycounter = 0
+        if private:
+            keycounter += len(self.to_dict()['private_keys'])
+        if public:
+            keycounter += len(self.to_dict()['public_keys'])
+
+        return keycounter
+
+    def coun_certificates(self):
+        certificates_count = len(self.to_dict()['certificates'])
+        return certificates_count
 
     def filter_id_by_label(self, key_label):
         keys = self.to_json()
@@ -108,7 +122,6 @@ class HsmObjects:
     def delete_ldev_objects(self):
         self.delete_objects_by_type("ldev")
 
-
     def delete_idev_objects(self):
         self.delete_objects_by_type("idev")
 
@@ -123,7 +136,6 @@ class HsmObjects:
             for key_name in keys[key_type]:
                 key_data = keys[key_type][key_name]
                 self.delete_hsm_object(type, key_data['ID'])
-
 
     def delete_key_by_label(self, key_label):
         self.filter_id_by_label(key_label)
@@ -149,9 +161,10 @@ def main():
     )
     print(hsm_objects.to_dict())
     print(hsm_objects.to_json())
-    #print(hsm_objects.to_dict())
+    # print(hsm_objects.to_dict())
     print("--- Get key ID ---")
     print("ID: {}".format(hsm_objects.filter_id_by_label(key_label="my_rsa_pvt_86599")))
+
 
 def most_recent_ldev():
     hsm_objects = HsmObjects(
@@ -161,6 +174,7 @@ def most_recent_ldev():
     most_recent = hsm_objects.get_most_recent_ldev_id()
     print(most_recent)
 
+
 def delete_idev():
     hsm_objects = HsmObjects(
         slot_num=0,
@@ -168,12 +182,14 @@ def delete_idev():
     )
     hsm_objects.delete_idev_objects()
 
+
 def get_actual_idev():
     hsm_objects = HsmObjects(
         slot_num=0,
         pin=config.hsm_pin
     )
     print(hsm_objects.get_actual_idev_id())
+
 
 if __name__ == "__main__":
     main()
