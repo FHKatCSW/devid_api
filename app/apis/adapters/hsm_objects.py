@@ -90,14 +90,14 @@ class HsmObjects:
 
         if keys:
             for key in self.to_dict()['private_keys']:
-                if key.startswith('idev') or key.startswith(type):
+                if key.startswith(type):
                     count += 1
             for key in self.to_dict()['public_keys']:
-                if key.startswith('idev') or key.startswith(type):
+                if key.startswith(type):
                     count += 1
         elif certs:
             for key in self.to_dict()['certificates']:
-                if key.startswith('idev') or key.startswith(type):
+                if key.startswith(type):
                     count += 1
 
         return count
