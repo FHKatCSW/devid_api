@@ -170,6 +170,7 @@ class HsmObjects:
         filtered_dict = {}
 
         if delete_num is not None:
+            # Delete <delete_num> private keys, public keys and certificates
             private_key_counter = 0
             public_key_counter = 0
             certificate_counter = 0
