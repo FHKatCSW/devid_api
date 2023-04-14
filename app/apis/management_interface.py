@@ -126,7 +126,7 @@ class DeleteLDevKeys(Resource):
                 slot_num=0,
                 pin=config.hsm_pin
             )
-            cnt_deleted_objects = hsm_objects.delete_objects_by_type("ldev", 1)
+            cnt_deleted_objects = hsm_objects.delete_objects_by_type("ldev", 3)
             return {"success": True,
                     "message": "Number of LDev objects deleted: {}".format(cnt_deleted_objects)}
         except Exception as err:
