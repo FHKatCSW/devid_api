@@ -160,7 +160,7 @@ class HighLvlLdevProvisionAws(Resource):
             ldevid.import_certificate()
             key_count = ldevid.hsm_key_count()
 
-            #ldevid.configure_azure()
+            # ldevid.configure_azure()
             return {"success": True,
                     "message": "Bootstrap done. No of keys on HSM: {}".format(key_count),
                     "hsm_key_cnt": key_count}
@@ -168,6 +168,7 @@ class HighLvlLdevProvisionAws(Resource):
             return {"success": False,
                     "message": str(err),
                     "hsm_key_cnt": None}
+
 
 @api.route('/actual', endpoint='highlvl-ldev-get')
 class HighLvlLdevActual(Resource):
