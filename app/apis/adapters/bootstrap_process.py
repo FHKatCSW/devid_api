@@ -39,6 +39,7 @@ class BootstrapDevId:
         self.serial_number=self.id
 
         self.presetup()
+        self.validate_single_idev()
 
     def setup_ldev_id(self):
         self.private_key_label = "ldev_pvt_key_{}".format(self.id)
@@ -55,6 +56,11 @@ class BootstrapDevId:
         self.create_directory("/home/admin/certs")
         self.create_directory("/home/admin/certs/id_{}".format(self.id))
 
+    def validate_single_idev(self):
+
+        idev = self.hsm_objects.get_most_recent_ldev_id()
+        if idev is not None:
+            raise Exception("IDevID already exists. There can only be one IDevID on the device")
 
     def create_directory(self, directory_path):
 
