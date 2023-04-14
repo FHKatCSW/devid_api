@@ -8,7 +8,7 @@ def main():
         slot_num=0,
         pin=config.hsm_pin
     )
-    hsm_objects.delete_objects_by_type("ldev", 2)
+    hsm_objects.delete_objects_by_type("ldev", 3)
 
 
 if __name__ == "__main__":
