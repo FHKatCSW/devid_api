@@ -96,12 +96,16 @@ class HighLvlLdevProvisionOpcUaServer(Resource):
                                 end_entity_profile_name=config.end_entity_profile_name_ldev_opc_server,
                                 certificate_authority_name=config.certificate_authority_name_ldev_opc_server)
             ldevid.import_certificate()
+            key_count = ldevid.hsm_key_count()
+
             #ldevid.configure_azure()
             return {"success": True,
-                    "message": "Bootstrap done"}
+                    "message": "Bootstrap done. No of keys on HSM: {}".format(key_count),
+                    "hsm_key_cnt": key_count}
         except Exception as err:
             return {"success": False,
-                    "message": str(err)}
+                    "message": str(err),
+                    "hsm_key_cnt": None}
 
 @api.route('/provision-azure', endpoint='highlvl-ldev-prov-azure')
 class HighLvlLdevProvisionAzure(Resource):
@@ -123,12 +127,16 @@ class HighLvlLdevProvisionAzure(Resource):
                                 end_entity_profile_name=config.end_entity_profile_name_ldev_azure,
                                 certificate_authority_name=config.certificate_authority_name_ldev_azure)
             ldevid.import_certificate()
+            key_count = ldevid.hsm_key_count()
+
             #ldevid.configure_azure()
             return {"success": True,
-                    "message": "Bootstrap done"}
+                    "message": "Bootstrap done. No of keys on HSM: {}".format(key_count),
+                    "hsm_key_cnt": key_count}
         except Exception as err:
             return {"success": False,
-                    "message": str(err)}
+                    "message": str(err),
+                    "hsm_key_cnt": None}
 
 @api.route('/provision-aws', endpoint='highlvl-ldev-prov-aws')
 class HighLvlLdevProvisionAws(Resource):
@@ -154,7 +162,7 @@ class HighLvlLdevProvisionAws(Resource):
 
             #ldevid.configure_azure()
             return {"success": True,
-                    "message": "Bootstrap done",
+                    "message": "Bootstrap done. No of keys on HSM: {}".format(key_count),
                     "hsm_key_cnt": key_count}
         except Exception as err:
             return {"success": False,
