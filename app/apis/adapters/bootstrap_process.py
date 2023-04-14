@@ -60,6 +60,7 @@ class BootstrapDevId:
 
         idev = self.hsm_objects.get_most_recent_ldev_id()
         if idev is not None:
+            self.logger.error("❌ IDevID already exists")
             raise Exception("IDevID already exists. There can only be one IDevID on the device")
 
     def create_directory(self, directory_path):
