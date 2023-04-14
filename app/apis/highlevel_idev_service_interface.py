@@ -64,11 +64,14 @@ class HighLvlIDevProvision(Resource):
                                 end_entity_profile_name=config.end_entity_profile_name_idev,
                                 certificate_authority_name=config.certificate_authority_name_idev)
             idevid.import_certificate()
+            key_count = idevid.hsm_key_count()
             return {"success": True,
-                    "message": "Bootstrap done"}
+                    "message": "Bootstrap done",
+                    "hsm_key_cnt": key_count}
         except Exception as err:
             return {"success": False,
-                    "message": str(err)}
+                    "message": str(err),
+                    "hsm_key_cnt": None}
 
 
 

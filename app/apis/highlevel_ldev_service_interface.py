@@ -150,12 +150,16 @@ class HighLvlLdevProvisionAws(Resource):
                                 end_entity_profile_name=config.end_entity_profile_name_ldev_aws,
                                 certificate_authority_name=config.certificate_authority_name_ldev_aws)
             ldevid.import_certificate()
+            key_count = ldevid.hsm_key_count()
+
             #ldevid.configure_azure()
             return {"success": True,
-                    "message": "Bootstrap done"}
+                    "message": "Bootstrap done",
+                    "hsm_key_cnt": key_count}
         except Exception as err:
             return {"success": False,
-                    "message": str(err)}
+                    "message": str(err),
+                    "hsm_key_cnt": None}
 
 @api.route('/actual', endpoint='highlvl-ldev-get')
 class HighLvlLdevActual(Resource):

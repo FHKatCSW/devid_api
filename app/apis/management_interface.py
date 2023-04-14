@@ -1,6 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from app.apis.adapters.__config__ import Configuration
 from app.apis.adapters import ejbca_health
+from app.apis.adapters.hsm_objects import HsmObjects
 
 config = Configuration()
 
@@ -92,6 +93,42 @@ class EjbcaStatusStatus(Resource):
             status = health.health_status()
             return {"success": status['success'],
                     "message": status['message']}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err)}
+
+@api.route('/delete/keys-all', endpoint='delete-keys-all')
+class DeleteAllKeys(Resource):
+
+    @api.doc("delete")
+    def delete(self):
+        """Delete all keys on the HSM"""
+        try:
+            hsm_objects = HsmObjects(
+                slot_num=0,
+                pin=config.hsm_pin
+            )
+            cnt_deleted_objects = hsm_objects.delete_all_objects()
+            return {"success": True,
+                    "message": "Number of objects deleted: {}".format(cnt_deleted_objects)}
+        except Exception as err:
+            return {"success": False,
+                    "message": str(err)}
+
+@api.route('/delete/keys-ldev', endpoint='delete-keys-ldev')
+class DeleteLDevKeys(Resource):
+
+    @api.doc("delete")
+    def delete(self):
+        """Delete all LDevkeys on the HSM"""
+        try:
+            hsm_objects = HsmObjects(
+                slot_num=0,
+                pin=config.hsm_pin
+            )
+            cnt_deleted_objects = hsm_objects.delete_ldev_objects()
+            return {"success": True,
+                    "message": "Number of LDev objects deleted: {}".format(cnt_deleted_objects)}
         except Exception as err:
             return {"success": False,
                     "message": str(err)}

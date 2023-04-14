@@ -10,7 +10,8 @@ def main():
         slot_num=0,
         pin=config.hsm_pin
     )
-    print(hsm_objects.to_dict())
+    print(hsm_objects.to_json())
+
 
     print("Number of private keys on HSM: {}".format(hsm_objects.count_keys(public=False)))
     print("Number of public keys on HSM: {}".format(hsm_objects.count_keys(private=False)))

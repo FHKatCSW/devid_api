@@ -146,25 +146,64 @@ class HsmObjects:
 
     def delete_all_objects(self):
         keys = self.to_dict()
-        self.delete_objects(keys)
+        deleted_keys = self.delete_objects(keys)
+        return deleted_keys
 
     def delete_ldev_objects(self):
-        self.delete_objects_by_type("ldev")
+        deleted_keys = self.delete_objects_by_type("ldev")
+        return deleted_keys
+
 
     def delete_idev_objects(self):
-        self.delete_objects_by_type("idev")
+        deleted_keys = self.delete_objects_by_type("idev")
+        return deleted_keys
 
-    def delete_objects_by_type(self, type):
+
+    def delete_objects_by_type_legacy(self, type):
         keys = self.to_dict()
         filtered_dict = {k1: {k2: v2 for k2, v2 in v1.items() if k2.startswith(type)} for k1, v1 in keys.items()}
-        self.delete_objects(filtered_dict)
+        deleted_keys = self.delete_objects(filtered_dict)
+        return deleted_keys
+
+    def delete_objects_by_type(self, type, delete_num=None):
+        keys = self.to_dict()
+        filtered_dict = {}
+
+        if delete_num is not None:
+            private_key_counter = 0
+            public_key_counter = 0
+            certificate_counter = 0
+
+            for k1, v1 in keys.items():
+                filtered_dict[k1] = {}
+                for k2, v2 in v1.items():
+                    if k2.startswith(type):
+                        if 'private_keys' in k1 and private_key_counter < delete_num:
+                            filtered_dict[k1][k2] = v2
+                            private_key_counter += 1
+                        elif 'public_keys' in k1 and public_key_counter < delete_num:
+                            filtered_dict[k1][k2] = v2
+                            public_key_counter += 1
+                        elif 'certificates' in k1 and certificate_counter < delete_num:
+                            filtered_dict[k1][k2] = v2
+                            certificate_counter += 1
+        else:
+            filtered_dict = {k1: {k2: v2 for k2, v2 in v1.items() if k2.startswith(type)} for k1, v1 in keys.items()}
+
+        deleted_keys = self.delete_objects(filtered_dict)
+        return deleted_keys
+
+
 
     def delete_objects(self, keys):
+        counter = 0
         for key_type in keys:
             type = "privkey" if key_type == "private_keys" else "pubkey" if key_type == "public_keys" else "cert"
             for key_name in keys[key_type]:
+                counter += 1
                 key_data = keys[key_type][key_name]
                 self.delete_hsm_object(type, key_data['ID'])
+        return counter
 
     def delete_key_by_label(self, key_label):
         self.filter_id_by_label(key_label)

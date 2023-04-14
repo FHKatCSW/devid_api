@@ -27,8 +27,7 @@ class BootstrapDevId:
         self.hsm_id = None
         self.serial_number = None
         self.id = random.randint(10000, 99999)
-
-
+        self.hsm_objects = None
 
     def setup_idev_id(self):
 
@@ -70,11 +69,11 @@ class BootstrapDevId:
                          public_key_label=self.public_key_label,
                          private_key_label=self.private_key_label)
         hsm_key.generate_rsa_key_pair()
-        hsm_objects = HsmObjects(
+        self.hsm_objects = HsmObjects(
             slot_num=self.slot,
             pin=self.pin
         )
-        self.hsm_id = hsm_objects.filter_id_by_label(key_label=self.private_key_label)
+        self.hsm_id = self.hsm_objects.filter_id_by_label(key_label=self.private_key_label)
         log_id = IDManager("/home/admin/certs/ldev_ids.json")
         log_id.add_id(self.hsm_id)
         self.key_generated = True
@@ -144,11 +143,12 @@ class BootstrapDevId:
         self.logger.info("？ Validate certificate")
 
         self.logger.info("-Export IDev Certificate to tmp storage")
-        hsm_objects = HsmObjects(
+
+        self.hsm_objects = HsmObjects(
             slot_num=self.slot,
             pin=self.pin
         )
-        hsm_idev_id = hsm_objects.get_actual_idev_id()
+        hsm_idev_id = self.hsm_objects.get_actual_idev_id()
 
         public_web_validator = CertValidator(id=hsm_idev_id)
         public_web_validator._load_ca_certs_via_public_web(ca_chain_url)
@@ -156,16 +156,19 @@ class BootstrapDevId:
         return self.valid_idev
 
     def validate_key_label_exists(self):
-        hsm_objects = HsmObjects(
+        self.hsm_objects = HsmObjects(
             slot_num=self.slot,
             pin=self.pin
         )
-        key_label_on_hsm = hsm_objects.filter_id_by_label(key_label=self.private_key_label)
+        key_label_on_hsm = self.hsm_objects.filter_id_by_label(key_label=self.private_key_label)
         if key_label_on_hsm is not None:
             Exception("key label already exists for key label: {}".format(self.private_key_label))
 
     def configure_azure(self):
         self.logger.info("🛠️ Work in progress")
+
+    def hsm_key_count(self):
+        return self.hsm_objects.count_keys()
 
 
 def bootstrap_idev():
