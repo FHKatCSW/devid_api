@@ -65,6 +65,7 @@ class HsmObjects:
         return json.dumps(self.to_dict(), indent=4)
 
     def count_keys(self, private=True, public=True):
+        self.logger.info("--Counting Keys; Private {}; Public: {}".format(str(private), str(public)))
         keycounter = 0
         if private:
             keycounter += len(self.to_dict()['private_keys'])
@@ -86,6 +87,7 @@ class HsmObjects:
         return self.count_objects_by_type("ldev", keys=False)
 
     def count_objects_by_type(self, type="idev", keys=True, certs=True):
+        self.logger.info("--Counting Objects by Type: Type: <{}>; Keys: <{}>; Certs: <{}>".format(type, str(keys), str(certs)))
         count = 0
 
         if keys:
@@ -102,11 +104,12 @@ class HsmObjects:
 
         return count
 
-    def coun_certificates(self):
+    def count_certificates(self):
         certificates_count = len(self.to_dict()['certificates'])
         return certificates_count
 
     def filter_id_by_label(self, key_label):
+        self.logger.info("--Filter ID by Label: key_label: <{}>".format(str(key_label)))
         keys = self.to_json()
         keys_str = json.loads(keys)
         for key_type in ["private_keys", "public_keys"]:
@@ -114,7 +117,7 @@ class HsmObjects:
                 return keys_str[key_type][key_label]["ID"]
 
     def get_actual_idev_id(self):
-        self.logger.info("-Search actual IDevID")
+        self.logger.info("--Search actual IDevID")
         data = self.to_dict()
 
         for key, value in data['private_keys'].items():
@@ -145,16 +148,19 @@ class HsmObjects:
         return False
 
     def delete_all_objects(self):
+        self.logger.info("--Delete all objects")
         keys = self.to_dict()
         deleted_keys = self.delete_objects(keys)
         return deleted_keys
 
     def delete_ldev_objects(self):
+        self.logger.info("--Delete LDev objects")
         deleted_keys = self.delete_objects_by_type("ldev")
         return deleted_keys
 
 
     def delete_idev_objects(self):
+        self.logger.info("--Delete IDev objects")
         deleted_keys = self.delete_objects_by_type("idev")
         return deleted_keys
 
@@ -166,6 +172,7 @@ class HsmObjects:
         return deleted_keys
 
     def delete_objects_by_type(self, type, delete_num=None):
+        self.logger.info("--Delete objects by type: type: <{}>; Delte specific number of objects: <{}>".format(type, str(delete_num)))
         keys = self.to_dict()
         filtered_dict = {}
 
@@ -218,7 +225,7 @@ class HsmObjects:
 
         ]
 
-        print("Executing command:", " ".join(command))
+        self.logger.info("Executing command:", " ".join(command))
         subprocess.call(command)
 
 

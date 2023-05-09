@@ -6,7 +6,7 @@ from app.apis.adapters.__config__ import Configuration
 
 class EjbcaHealth:
     def __init__(self, base_url, p12_file, p12_pass):
-        self.logger = logger.get_logger("CertRequest")
+        self.logger = logger.get_logger("EjbcaHealth")
 
         self.base_url = base_url
         self.p12_file = p12_file
@@ -15,6 +15,7 @@ class EjbcaHealth:
 
 
     def health_status(self):
+        self.logger.info("--Check health status of EJBCA instance")
         # Create JSON payload
         up_and_running = False
         message = "Initial message"

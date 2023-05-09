@@ -8,5 +8,5 @@ setup(
     license='',
     author='florianhandke',
     author_email='florian.handke@campus-schwarzwald.de',
-    description=''
+    description='A REST interface which covers functionalities from IEEE 802.1 AR written in Python'
 )

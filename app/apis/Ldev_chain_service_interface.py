@@ -9,19 +9,21 @@ class LDevIDChain(Resource):
     @api.doc("post")
     def post(self, certificateIndex):
         """LDevID certificate chain insert (7-2-12): A certificate chain to be associated with a certificateIndex"""
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
     @api.doc("get")
     def get(self, certificateIndex):
         """LDevID certificate chain export (NOT STANDARDIZED): Exports a certificate chain associated to a certificateIndex"""
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
     @api.doc("delete")
     def delete(self, certificateIndex):
         """LDevID certificate chain delete (7-2-14): The DevID module performs cryptographic zeroization on LDevID certificate chain material as part of the delete process"""
 
-        return {"status": "NotImplemented"}
-
+        return {"success": True,
+                "status": "NotImplemented"}
 
 
 

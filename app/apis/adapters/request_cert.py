@@ -26,6 +26,7 @@ class CertRequest:
             self.csr = f.read()
 
     def request_certificate(self, cert_file, certificate_profile_name, end_entity_profile_name, certificate_authority_name):
+        self.logger.info("--Request certificate ")
         # Create JSON payload
         try:
             payload = {
@@ -53,17 +54,17 @@ class CertRequest:
 
             response = json.loads(response.text)
 
-            self.logger.info("-Save certificate")
-            self.logger.info("--Path: {}".format(cert_file))
-            self.logger.info("--Certificate: {}".format(response["certificate"]))
+            self.logger.info("---Save certificate")
+            self.logger.info("----Path: {}".format(cert_file))
+            self.logger.info("----Certificate: {}".format(response["certificate"]))
 
             certificate = response["certificate"]
 
             self.save_cert_to_pem(certificate, cert_file)
             self.get_sha_fingerprint(cert_file)
 
-            self.logger.info("-Certificate received ✅")
-            self.logger.info("--Serial number: {}".format(response["serial_number"]))
+            self.logger.info("---Certificate received ✅")
+            self.logger.info("----Serial number: {}".format(response["serial_number"]))
 
         except requests.exceptions.HTTPError as err:
             self.logger.error("❌ HTTP error occurred: %s", str(err))
@@ -83,6 +84,7 @@ class CertRequest:
             certificate_file.write("-----END CERTIFICATE-----\n")
 
     def save_cert_to_pem(self, certificate_string, cert_path):
+        self.logger.info("--Save certificate string to PEM file: Filepath: <{}>".format(cert_path))
         # Decode the received text string from base64 and convert it to bytes
         certificate_bytes = base64.b64decode(certificate_string)
 
@@ -94,6 +96,7 @@ class CertRequest:
             f.write(certificate.public_bytes(encoding=serialization.Encoding.PEM))
 
     def get_sha_fingerprint(self, cert_path):
+        self.logger.info("--Get SHA fingerprint from certificate")
         # Load the certificate from the PEM file
         with open(cert_path, "r") as cert_file:
             cert_data = cert_file.read().encode("ascii")

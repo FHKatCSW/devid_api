@@ -13,7 +13,8 @@ class Logs(Resource):
     @api.doc("get")
     def get(self):
         """Get the logs of the DevID Management Interface"""
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
 @api.route('/dev-id-enumeration', endpoint='dev-id-enum')
 class DevIDCertEnable(Resource):
@@ -27,7 +28,8 @@ class DevIDCertEnable(Resource):
         #    — A value indicating if the certificate is enabled,
         #    — A value indicating if the certificate is an IDevID certificate, and
         #    — The certificate itself, DER encoded as specified in RFC 5280.
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
 @api.route('/sign/<keyIndex>/<data>', endpoint='sign')
 @api.doc(params={'keyIndex': 'The keyIndex of the DevID',
@@ -39,7 +41,8 @@ class Sign(Resource):
         """DevID key enable/disable (7.2.7)"""
         # This operation allows the device administrator to control the use of DevID keys, and to maintain a measure
         # of privacy by limiting exposure of the device’s cryptographic identity.
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
 @api.route('/status/rest', endpoint='status-rest')
 class RestStatus(Resource):
@@ -48,7 +51,7 @@ class RestStatus(Resource):
     def post(self):
         """Status of the REST API"""
         return {"success": True,
-                "message": "NotImplemented"}
+                "message": "Rest Interface is online"}
 
 @api.route('/status/hsm', endpoint='status-hsm')
 class HsmStatus(Resource):
@@ -141,7 +144,8 @@ class DevIDKeyEnable(Resource):
     @api.doc("post")
     def post(self, certificateIndex, state):
         """DevID key enable/disable (7-2-6): This operation allows the device administrator to disable use of a DevID without disabling the associated key, which might be in use by a different DevID"""
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
 @api.route('/dev-id-key/<keyIndex>/<state>', endpoint='dev-id-key')
 @api.doc(params={'keyIndex': 'The keyIndex of the DevID',
@@ -153,6 +157,7 @@ class DevIDCertEnable(Resource):
         """DevID key enable/disable (7.2.7)"""
         # This operation allows the device administrator to control the use of DevID keys, and to maintain a measure
         # of privacy by limiting exposure of the device’s cryptographic identity.
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
 

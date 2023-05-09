@@ -15,7 +15,7 @@ config = Configuration()
 class BootstrapDevId:
     def __init__(self, pin, slot):
 
-        self.logger = logger.get_logger("Bootstrap DevID")
+        self.logger = logger.get_logger("BootstrapDevID")
         self.pin = pin
         self.slot = slot
         self.key_generated = False
@@ -30,6 +30,7 @@ class BootstrapDevId:
         self.hsm_objects = None
 
     def setup_idev_id(self):
+        self.logger.info("--Setup IDevID")
 
         self.idev = True
         self.private_key_label="idev_pvt_key_{}".format(self.id)
@@ -42,6 +43,7 @@ class BootstrapDevId:
         self.validate_single_idev()
 
     def setup_ldev_id(self):
+        self.logger.info("--Setup LDevID")
         self.private_key_label = "ldev_pvt_key_{}".format(self.id)
         self.public_key_label = "ldev_pub_key_{}".format(self.id)
         self.cert_path='/home/admin/certs/id_{}/ldev_cert_{}.cert.pem'.format(self.id, self.id)
@@ -51,14 +53,16 @@ class BootstrapDevId:
 
 
     def presetup(self):
+        self.logger.info("--Presetup")
         self.validate_key_label_exists()
 
         self.create_directory("/home/admin/certs")
         self.create_directory("/home/admin/certs/id_{}".format(self.id))
 
     def validate_single_idev(self):
+        self.logger.info("--Validate if a IDevID exists")
 
-        idev = self.hsm_objects.get_most_recent_ldev_id()
+        idev = self.hsm_objects.get_actual_idev_id()
         if idev is not None:
             self.logger.error("❌ IDevID already exists")
             raise Exception("IDevID already exists. There can only be one IDevID on the device")
@@ -140,6 +144,7 @@ class BootstrapDevId:
                                        certificate_path=self.cert_path)
 
     def export_certificate(self):
+        self.logger.info("--Export certificate with hsm_id: <{}>".format(str(self.hsm_id)))
         export_cert = CertHandler(
             pin=self.pin,
             cert_id=self.hsm_id,

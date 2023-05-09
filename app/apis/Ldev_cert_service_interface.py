@@ -9,7 +9,8 @@ class LDevIDCert(Resource):
     @api.doc("post")
     def post(self, certificateIndex):
         """Provision an LDevID certificate"""
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
     @api.doc("delete")
     def delete(self, certificateIndex):
@@ -17,13 +18,14 @@ class LDevIDCert(Resource):
         remove the associated DevID secret - This operation does not delete an IDevID certificate even if identified
         by the certificateIndex - The DevID module performs cryptographic zeroization on LDevID certificate material as part of the
         delete process"""
-        return {"status": "NotImplemented"}
+        return {"success": True,
+                "status": "NotImplemented"}
 
     @api.doc("get")
     def get(self, certificateIndex):
         """LDevID certificate export (NOT STANDARDIZED): Exports a certificate associated to a certificateIndex"""
-        return {"status": "NotImplemented"}
-
+        return {"success": True,
+                "status": "NotImplemented"}
 
 
 
