@@ -61,12 +61,12 @@ class Configuration:
         #self.ejbca_url = 'ejbca-node1.local'
         self.ejbca_url = '192.168.1.3'
 
-        self.p12_auth_file_path = '/home/admin/certs/RestAdminHmi_0001.p12'
+        self.p12_auth_file_path = '/home/admin/certs/rest-admin-idevid-01.p12'
         self.p12_auth_file_pwd = 'foo123'
 
         # IDevID configuration for EJBCA
         self.certificate_profile_name_idev = 'EndEntityProfile-IDevId'
-        self.end_entity_profile_name_idev = 'EndEntity-IDevId'
+        self.end_entity_profile_name_idev = 'IDevId-EndEntity'
         self.certificate_authority_name_idev = 'IDevID-CA'
         self.ca_chain_url_idev = "https://192.168.1.3/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=576048594&format=pem"
 
