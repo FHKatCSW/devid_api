@@ -9,12 +9,14 @@ def main():
     ldevid.validate_idev_certifificate(ca_chain_url=config.ca_chain_url_idev)
     ldevid.create_key()
     ldevid.generate_csr()
-    ldevid.request_cert(base_url=config.ejbca_url,
-                           p12_file=config.p12_auth_file_path,
-                           p12_pass=config.p12_auth_file_pwd,
+    ldevid.request_cert(base_url=config.ldev_ejbca_url,
+                           p12_file=config.ldev_p12_auth_file_path,
+                           p12_pass=config.ldev_p12_auth_file_pwd,
                            certificate_profile_name=config.certificate_profile_name_ldev_basic,
                            end_entity_profile_name=config.end_entity_profile_name_ldev_basic,
-                           certificate_authority_name=config.certificate_authority_name_ldev_basic)
+                           certificate_authority_name=config.certificate_authority_name_ldev_basic,
+                        token_user=config.ldev_token_user,
+                        token_pw=config.ldev_token_pw)
     ldevid.import_certificate()
 
 if __name__ == "__main__":

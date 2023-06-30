@@ -57,12 +57,14 @@ class HighLvlIDevProvision(Resource):
             idevid.setup_idev_id()
             idevid.create_key()
             idevid.generate_csr(o="Keyfactor", ou="IoT-Department", c="DE", pseudonym="Wonderdevice 2.0")
-            idevid.request_cert(base_url=config.ejbca_url,
-                                p12_file=config.p12_auth_file_path,
-                                p12_pass=config.p12_auth_file_pwd,
+            idevid.request_cert(base_url=config.idev_ejbca_url,
+                                p12_file=config.idev_p12_auth_file_path,
+                                p12_pass=config.idev_p12_auth_file_pwd,
                                 certificate_profile_name=config.certificate_profile_name_idev,
                                 end_entity_profile_name=config.end_entity_profile_name_idev,
-                                certificate_authority_name=config.certificate_authority_name_idev)
+                                certificate_authority_name=config.certificate_authority_name_idev,
+                        token_user=config.idev_token_user,
+                        token_pw=config.idev_token_pw)
             idevid.import_certificate()
             key_count = idevid.hsm_key_count()
             return {"success": True,

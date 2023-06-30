@@ -117,7 +117,8 @@ class BootstrapDevId:
                                   c=c,
                                   pseudonym=pseudonym)
 
-    def request_cert(self, base_url, p12_file, p12_pass, certificate_profile_name, end_entity_profile_name, certificate_authority_name):
+    def request_cert(self, base_url, p12_file, p12_pass, certificate_profile_name, end_entity_profile_name, certificate_authority_name,
+                     token_user, token_pw):
         self.logger.info("📄 Request certificate")
 
         cert_req = CertRequest(
