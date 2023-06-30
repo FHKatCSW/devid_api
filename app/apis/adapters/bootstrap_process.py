@@ -131,7 +131,9 @@ class BootstrapDevId:
         cert_req.request_certificate(cert_file=self.cert_path,
                                      certificate_profile_name=certificate_profile_name,
                                      end_entity_profile_name=end_entity_profile_name,
-                                     certificate_authority_name=certificate_authority_name)
+                                     certificate_authority_name=certificate_authority_name,
+                                     token_user=token_user,
+                                     token_pw=token_pw)
 
     def import_certificate(self):
         self.logger.info("⬆️ Import certificate")
