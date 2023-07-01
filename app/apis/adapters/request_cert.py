@@ -25,7 +25,7 @@ class CertRequest:
         with open(csr_file, 'r') as f:
             self.csr = f.read()
 
-    def request_certificate(self, cert_file, certificate_profile_name, end_entity_profile_name, certificate_authority_name, token_user, token_pw):
+    def request_certificate(self, cert_file, certificate_profile_name, end_entity_profile_name, certificate_authority_name, token_user, token_pw, ca_certificate=False):
         self.logger.info("--Request certificate ")
         # Create JSON payload
         try:
@@ -48,7 +48,7 @@ class CertRequest:
                 url=url,
                 headers={'Content-Type': 'application/json', 'Accept': 'application/json'},
                 data=json_payload,
-                verify=False
+                verify=ca_certificate
             )
             response.raise_for_status()  # raise an HTTPError if status code is >= 400
             if "certificate" not in response.text:

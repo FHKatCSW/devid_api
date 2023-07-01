@@ -16,7 +16,8 @@ def main():
                         end_entity_profile_name=config.end_entity_profile_name_idev,
                         certificate_authority_name=config.certificate_authority_name_idev,
                         token_user=config.idev_token_user,
-                        token_pw=config.idev_token_pw)
+                        token_pw=config.idev_token_pw,
+                        ca_certificate=config.idev_ca_certificate)
     idevid.import_certificate()
 
 
