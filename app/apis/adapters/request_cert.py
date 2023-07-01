@@ -33,9 +33,9 @@ class CertRequest:
                 'certificate_request': self.csr,
                 'certificate_profile_name': certificate_profile_name,
                 'end_entity_profile_name': end_entity_profile_name,
-                'certificate_authority_name': certificate_authority_name
-                # "username": token_user,
-                # "password": token_pw
+                'certificate_authority_name': certificate_authority_name,
+                "username": token_user,
+                "password": token_pw
             }
             json_payload = json.dumps(payload)
 
