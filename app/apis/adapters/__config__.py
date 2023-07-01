@@ -76,11 +76,11 @@ class Configuration:
         # EJBCA URL and authentication
         #self.ejbca_url = 'ejbca-node1.local'
         self.idev_ejbca_url = '192.168.1.3'
-        self.idev_p12_auth_file_path = '/home/admin/certs/rest-admin-idevid-01.p12'
+        self.idev_p12_auth_file_path = '/home/admin/certs/rest-admin-idevid-02.p12'
         self.idev_p12_auth_file_pwd = 'foo123'
 
         self.ldev_ejbca_url = '192.168.1.3'
-        self.ldev_p12_auth_file_path = '/home/admin/certs/rest-admin-idevid-01.p12'
+        self.ldev_p12_auth_file_path = '/home/admin/certs/rest-admin-idevid-02.p12'
         self.ldev_p12_auth_file_pwd = 'foo123'
 
         # IDevID configuration for EJBCA
