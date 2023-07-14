@@ -88,7 +88,7 @@ class Configuration:
         # IDevID configuration for EJBCA
         self.certificate_profile_name_idev = 'EndEntityProfile-IDevId'
         self.end_entity_profile_name_idev = 'EndEntity-IDevId'
-        self.certificate_authority_name_idev = 'IDevId-CA'
+        self.certificate_authority_name_idev = 'IssueingCa-IDevId'
         self.ca_chain_url_idev = "https://192.168.1.3/ejbca/publicweb/webdist/certdist?cmd=cachain&caid=576048594&format=pem"
 
         self.idev_token_user = "testuser-001"
